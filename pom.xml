@@ -61,7 +61,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                org.coursework.new_recommendation/org.coursework.new_recommendation.HelloApplication
+                                org.coursework.new_recommendation/org.coursework.new_recommendation.MainApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
