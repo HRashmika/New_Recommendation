@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="97f9d708-7c25-46e2-a6d4-f27559e7dabc" name="Changes" comment="Second commit">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Login.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Mainpage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/login.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/mainpage.fxml" afterDir="false" />
+    <list default="true" id="97f9d708-7c25-46e2-a6d4-f27559e7dabc" name="Changes" comment="Third commit">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/AdminLogin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/AdminSignup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/admin_login.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/admin_signup.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/signup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/signup.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,22 +55,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_directory_selection": "C:/Users/User/IdeaProjects/New_Recommendation/src/main/java/org/coursework/new_recommendation",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/User/IdeaProjects/New_Recommendation/src/main/java/org/coursework/new_recommendation&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -90,7 +88,8 @@
       <option name="presentableId" value="Default" />
       <updated>1730870893410</updated>
       <workItem from="1730870894520" duration="1527000" />
-      <workItem from="1730872441991" duration="2586000" />
+      <workItem from="1730872441991" duration="2680000" />
+      <workItem from="1730949618283" duration="1243000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -108,7 +107,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730872357987</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Third commit">
+      <option name="closed" value="true" />
+      <created>1730875841093</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1730875841093</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -117,7 +124,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First commit" />
     <MESSAGE value="Second commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Second commit" />
+    <MESSAGE value="Third commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Third commit" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
