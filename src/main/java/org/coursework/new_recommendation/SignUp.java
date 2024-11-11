@@ -1,12 +1,14 @@
 package org.coursework.new_recommendation;
 
-import com.mongodb.client.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import org.bson.Document;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
+import javafx.event.ActionEvent;
 
 public class SignUp {
+
     @FXML
     private TextField emailField;
 
@@ -14,78 +16,84 @@ public class SignUp {
     private TextField usernameField;
 
     @FXML
-    private PasswordField passwordField;
+    private TextField passwordField;
 
     @FXML
-    private PasswordField confirmPasswordField;
+    private TextField confirmPasswordField;
 
     @FXML
-    private RadioButton entertainmentRadio;
+    private Button backButton;
 
     @FXML
-    private RadioButton financialRadio;
+    private Button signupButton;
 
     @FXML
-    private RadioButton politicalRadio;
+    private Button loginButton;
 
     @FXML
-    private RadioButton sportsRadio;
+    private CheckBox technologyCheckbox;
 
     @FXML
-    private RadioButton weatherRadio;
+    private CheckBox aiCheckbox;
 
     @FXML
-    private Button signUpButton;
-
-    private MongoClient mongoClient;
-    private MongoDatabase database;
-    private MongoCollection<Document> userDetailsCollection;
+    private CheckBox weatherCheckbox;
 
     @FXML
+    private CheckBox healthcareCheckbox;
+
+    @FXML
+    private CheckBox sportsCheckbox;
+
+    @FXML
+    private CheckBox financeCheckbox;
+
+    // Method to initialize the controller
     public void initialize() {
-        // Connect to MongoDB
-        mongoClient = MongoClients.create("mongodb://localhost:27017");
-        database = mongoClient.getDatabase("News_Recommendation_System");
-        userDetailsCollection = database.getCollection("user_details");
+        signupButton.setOnAction(this::handleSignup);
+        backButton.setOnAction(this::handleBack);
+        loginButton.setOnAction(this::handleLogin);
     }
 
-    @FXML
-    protected void onSignUpButtonClick(ActionEvent event) {
+    private void handleSignup(ActionEvent event) {
+        // Get text input from fields
         String email = emailField.getText();
         String username = usernameField.getText();
         String password = passwordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
-        // Check if passwords match
-        if (!password.equals(confirmPassword)) {
-            showAlert(Alert.AlertType.ERROR, "Sign Up Error", "Passwords do not match!");
-            return;
+        // Validate input and check password confirmation
+        if (password.equals(confirmPassword)) {
+            // Handle preferences selected
+            boolean prefersTechnology = technologyCheckbox.isSelected();
+            boolean prefersAI = aiCheckbox.isSelected();
+            boolean prefersWeather = weatherCheckbox.isSelected();
+            boolean prefersHealthcare = healthcareCheckbox.isSelected();
+            boolean prefersSports = sportsCheckbox.isSelected();
+            boolean prefersFinance = financeCheckbox.isSelected();
+
+            // Here, add code to save this data to the database or handle it as required
+            System.out.println("User signed up with the following details:");
+            System.out.println("Email: " + email);
+            System.out.println("Username: " + username);
+            System.out.println("Technology: " + prefersTechnology);
+            System.out.println("AI: " + prefersAI);
+            System.out.println("Weather: " + prefersWeather);
+            System.out.println("Healthcare: " + prefersHealthcare);
+            System.out.println("Sports: " + prefersSports);
+            System.out.println("Finance: " + prefersFinance);
+        } else {
+            System.out.println("Passwords do not match.");
         }
-
-        // Collect preferences
-        StringBuilder preferences = new StringBuilder();
-        if (entertainmentRadio.isSelected()) preferences.append("Entertainment, ");
-        if (financialRadio.isSelected()) preferences.append("Financial, ");
-        if (politicalRadio.isSelected()) preferences.append("Political, ");
-        if (sportsRadio.isSelected()) preferences.append("Sports, ");
-        if (weatherRadio.isSelected()) preferences.append("Weather");
-
-        // Create a document and insert into MongoDB
-        Document newUser = new Document("Email", email)
-                .append("Username", username)
-                .append("Password", password)
-                .append("Preferences", preferences.toString());
-
-        userDetailsCollection.insertOne(newUser);
-
-        showAlert(Alert.AlertType.INFORMATION, "Sign Up Successful", "User signed up successfully!");
     }
 
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    private void handleBack(ActionEvent event) {
+        // Code to navigate back to the previous screen or main menu
+        System.out.println("Back button clicked");
+    }
+
+    private void handleLogin(ActionEvent event) {
+        // Code to open the login screen
+        System.out.println("Login button clicked");
     }
 }
