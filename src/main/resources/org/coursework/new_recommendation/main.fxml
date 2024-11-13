@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.MainApplication">
     <children>
@@ -12,26 +12,15 @@
             <tabs>
                 <Tab text="Home">
                     <content>
-                        <ButtonBar prefHeight="371.0" prefWidth="567.0">
-                            <buttons>
-                                <AnchorPane prefHeight="371.0" prefWidth="654.0">
-                                    <children>
-                                        <Button layoutX="503.0" layoutY="30.0" mnemonicParsing="false" text="Log In" />
-                                        <Button fx:id="signUpButton" layoutX="420.0" layoutY="30.0" text="Sign Up"/>
-                                        <Button fx:id="loginButton" layoutX="420.0" layoutY="75.0" mnemonicParsing="false" text="Log In" onAction="#handleLoginButtonAction"/>
-
-                                        <Text layoutX="371.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User" />
-                                        <Text layoutX="319.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator" wrappingWidth="75.73675537109375" />
-                                    </children>
-                                </AnchorPane>
-                            </buttons>
-                        </ButtonBar>
-                    </content>
-                </Tab>
-                <Tab text="Untitled Tab 2" />
-                <Tab text="Untitled Tab">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane prefHeight="371.0" prefWidth="567.0">
+                            <children>
+                                <Button fx:id="UserloginButton" layoutX="503.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleUserLoginButtonAction" text="Log In" />
+                                <Button fx:id="signUpButton" layoutX="420.0" layoutY="30.0" mnemonicParsing="false" onAction="#handleUserSignUpButtonAction" text="Sign Up" />
+                                <Button fx:id="loginButton" layoutX="420.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" text="Log In" />
+                                <Text layoutX="371.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User" />
+                                <Text layoutX="319.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator" wrappingWidth="75.73675537109375" />
+                            </children>
+                        </AnchorPane>
                     </content>
                 </Tab>
             </tabs>
