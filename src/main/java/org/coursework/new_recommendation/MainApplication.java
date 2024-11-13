@@ -1,60 +1,51 @@
 package org.coursework.new_recommendation;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
-
 import java.io.IOException;
 
 public class MainApplication extends Application {
 
     @FXML
-    private Button signUpButton;
+    private Button loginButton; // Make sure this corresponds to your FXML
 
     @Override
-    public void start(Stage stage) throws IOException {
-        // Load the main.fxml file to show the main scene
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 700);
-        stage.setTitle("Main Application");
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) throws Exception {
+        // Load the main application FXML
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        AnchorPane root = loader.load();
+
+        // Set the main stage
+        primaryStage.setTitle("Main Application");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 
+    // Method for handling the login button action
     @FXML
-    public void initialize() {
-        // Debugging the signUpButton initialization
-        System.out.println("signUpButton is: " + signUpButton);
+    private void handleLoginButtonAction(ActionEvent event) throws IOException {
+        // Load the AdminLogin.fxml file
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("admin_login.fxml"));
+        AnchorPane adminLoginPane = loader.load();
 
-        // Ensure the button is initialized before setting the action
-        if (signUpButton != null) {
-            signUpButton.setOnAction(this::handlesignUpButtonClick);  // Set the event handler programmatically
-        } else {
-            System.out.println("signUpButton is null.");
-        }
-    }
+        // Create a new scene with the AdminLogin layout
+        Scene adminLoginScene = new Scene(adminLoginPane);
 
-    // This method is called when the "Sign Up" button is clicked
-    private void handlesignUpButtonClick(ActionEvent event) {
-        try {
-            // Load the SignUp.fxml file and set it as the new scene
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("SignUp.fxml"));
-            Parent signUpRoot = loader.load();
+        // Get the current stage (main stage)
+        Stage stage = (Stage) loginButton.getScene().getWindow();
 
-            // Get the current stage (window) from the button
-            Stage stage = (Stage) signUpButton.getScene().getWindow();
-            stage.setScene(new Scene(signUpRoot, 750, 600));  // Adjust size as needed
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Set the scene to the admin login scene
+        stage.setScene(adminLoginScene);
+        stage.show();
     }
 }
