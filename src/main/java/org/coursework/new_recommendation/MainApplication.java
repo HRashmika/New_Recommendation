@@ -24,7 +24,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // Load the main application FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Articles.fxml"));
         AnchorPane root = loader.load();
 
         // Set the main stage

@@ -4,6 +4,7 @@ module org.coursework.new_recommendation {
     requires org.mongodb.driver.sync.client;
     requires org.mongodb.bson;
     requires org.mongodb.driver.core;
+    requires org.json;
 
 
     opens org.coursework.new_recommendation to javafx.fxml;

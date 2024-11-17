@@ -61,7 +61,7 @@ public class Login implements Initializable {
         if (checkCredentials(username, password)) {
             // Load the next scene after successful login
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Options.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Articles.fxml"));
                 Scene optionsScene = new Scene(loader.load());
 
                 // Get the current stage (login stage)
