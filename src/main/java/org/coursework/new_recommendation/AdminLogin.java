@@ -62,18 +62,17 @@ public class AdminLogin {
 
                 Scene mainPageScene = new Scene(loader.load());
 
-                // Get the current stage (login stage)
                 Stage stage = (Stage) loginButton.getScene().getWindow();
 
-                // Set the scene to the main page scene
+
                 stage.setScene(mainPageScene);
                 stage.show();
             } catch (IOException e) {
-                e.printStackTrace(); // Print the exception stack trace for debugging
+                e.printStackTrace(); // Print the exception stack trace for debugging , (optional)
                 showAlert(Alert.AlertType.ERROR, "Page Load Error", "Could not load main page: " + e.getMessage());
             }
         } else {
-            // Show error message if credentials are invalid
+
             showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid Admin ID or Password.");
         }
     }

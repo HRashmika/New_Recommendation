@@ -22,17 +22,22 @@ public class MainApplication extends Application {
     private Button UserloginButton;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        // Load the main application FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Articles.fxml"));
-        AnchorPane root = loader.load();
+    public void start(Stage primaryStage) {
+        try {
+            // Load the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("signup.fxml"));
+            AnchorPane root = loader.load();
 
-        // Set the main stage
-        primaryStage.setTitle("Main Application");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+            // Set up the scene
+            primaryStage.setTitle("News Recommendation System - Sign Up");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        } catch (Exception e) {
+            // Print the stack trace for debugging
+            e.printStackTrace();
+            System.out.println("Error loading FXML: " + e.getMessage());
+        }
     }
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -64,7 +69,7 @@ public class MainApplication extends Application {
 
     @FXML
     private void handleUserSignUpButtonAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("signup.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
         AnchorPane signUpPane = loader.load();
         Scene signUpScene = new Scene(signUpPane);
 

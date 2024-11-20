@@ -4,20 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="97f9d708-7c25-46e2-a6d4-f27559e7dabc" name="Changes" comment="Seventh commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleAPI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleProcess.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleStore.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Articles.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/Articles.fxml" afterDir="false" />
+    <list default="true" id="97f9d708-7c25-46e2-a6d4-f27559e7dabc" name="Changes" comment="Eighth commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/AdminLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/AdminLogin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Options.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Options.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/Options.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/Options.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/SignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/signup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/signup.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +111,9 @@
       <workItem from="1731555542404" duration="715000" />
       <workItem from="1731648665372" duration="749000" />
       <workItem from="1731684950765" duration="27000" />
-      <workItem from="1731832230277" duration="2802000" />
+      <workItem from="1731832230277" duration="3016000" />
+      <workItem from="1732008378453" duration="67000" />
+      <workItem from="1732117914919" duration="1026000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -209,7 +203,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731684969824</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Eighth commit">
+      <option name="closed" value="true" />
+      <created>1731835221052</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1731835221052</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,7 +236,8 @@
     <MESSAGE value="Fifth commit" />
     <MESSAGE value="Sixth commit" />
     <MESSAGE value="Seventh commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Seventh commit" />
+    <MESSAGE value="Eighth commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Eighth commit" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

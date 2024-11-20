@@ -123,7 +123,7 @@ public class SignUp {
 
         try {
             collection.insertOne(userDocument);
-            System.out.println("User Sign-Up Successful");
+            navigateToOptions();
         } catch (Exception e) {
             System.out.println("Error inserting user: " + e.getMessage());
             errorMessageLabel.setText("Sign-up failed. Try again.");
@@ -138,6 +138,15 @@ public class SignUp {
         Scene loginScene = new Scene(loginPane);
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.setScene(loginScene);
+        stage.show();
+    }
+
+    private void navigateToOptions() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Options.fxml"));
+        AnchorPane optionsPane = loader.load();
+        Scene optionsScene = new Scene(optionsPane);
+        Stage stage = (Stage) signupButton.getScene().getWindow();
+        stage.setScene(optionsScene);
         stage.show();
     }
 
