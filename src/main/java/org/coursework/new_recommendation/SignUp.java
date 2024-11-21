@@ -72,7 +72,7 @@ public class SignUp {
 
     @FXML
     private void handleBackButtonAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
         AnchorPane loginPane = loader.load();
         Scene loginScene = new Scene(loginPane);
         Stage stage = (Stage) backButton.getScene().getWindow();
@@ -146,7 +146,7 @@ public class SignUp {
 
     @FXML
     private void handleLoginButtonAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         AnchorPane loginPane = loader.load();
         Scene loginScene = new Scene(loginPane);
         Stage stage = (Stage) loginButton.getScene().getWindow();

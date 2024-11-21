@@ -4,14 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="97f9d708-7c25-46e2-a6d4-f27559e7dabc" name="Changes" comment="Fixing the signup page">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/CSV.java" afterDir="false" />
+    <list default="true" id="97f9d708-7c25-46e2-a6d4-f27559e7dabc" name="Changes" comment="Changing the API to the database">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/UserLogin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Options.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleProcess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Articles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Articles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/MainApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/SignUp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/Options.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/Articles.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/Articles.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/signup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/signup.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,31 +64,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ApplicationClass.executor": "Run",
-    "Application.CSV.executor": "Run",
-    "Application.MainApplication.executor": "Run",
-    "Application.Mainpage.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_directory_selection": "C:/Users/User/IdeaProjects/New_Recommendation/src/main/java/org/coursework/new_recommendation",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "configurable.group.database.main",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ApplicationClass.executor&quot;: &quot;Run&quot;,
+    &quot;Application.CSV.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MainApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Mainpage.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_directory_selection&quot;: &quot;C:/Users/User/IdeaProjects/New_Recommendation/src/main/java/org/coursework/new_recommendation&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.database.main&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mongo"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mongo&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -117,7 +123,10 @@
       <workItem from="1731832230277" duration="3016000" />
       <workItem from="1732008378453" duration="67000" />
       <workItem from="1732117914919" duration="1220000" />
-      <workItem from="1732158171762" duration="5458000" />
+      <workItem from="1732158171762" duration="5691000" />
+      <workItem from="1732169453754" duration="614000" />
+      <workItem from="1732171733025" duration="6000" />
+      <workItem from="1732178518155" duration="2892000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -223,7 +232,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732119132223</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Changing the API to the database">
+      <option name="closed" value="true" />
+      <created>1732165991239</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1732165991239</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,7 +267,8 @@
     <MESSAGE value="Seventh commit" />
     <MESSAGE value="Eighth commit" />
     <MESSAGE value="Fixing the signup page" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixing the signup page" />
+    <MESSAGE value="Changing the API to the database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changing the API to the database" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

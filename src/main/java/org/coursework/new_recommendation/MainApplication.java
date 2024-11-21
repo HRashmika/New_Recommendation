@@ -13,7 +13,7 @@ import java.io.IOException;
 public class MainApplication extends Application {
 
     @FXML
-    private Button loginButton; // Corresponds to your FXML
+    private Button loginButton;
 
     @FXML
     private Button signUpButton;
@@ -25,31 +25,29 @@ public class MainApplication extends Application {
     public void start(Stage primaryStage) {
         try {
             // Load the FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("signup.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
             AnchorPane root = loader.load();
 
             // Set up the scene
-            primaryStage.setTitle("News Recommendation System - Sign Up");
+            primaryStage.setTitle("News Recommendation System");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         } catch (Exception e) {
-            // Print the stack trace for debugging
             e.printStackTrace();
             System.out.println("Error loading FXML: " + e.getMessage());
         }
     }
+
     public static void main(String[] args) {
         launch(args);
     }
 
-    // Handle the "Login" button click
     @FXML
     private void handleLoginButtonAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("admin_login.fxml"));
         AnchorPane adminLoginPane = loader.load();
         Scene adminLoginScene = new Scene(adminLoginPane);
 
-        // Use the current stage
         Stage currentStage = (Stage) loginButton.getScene().getWindow();
         currentStage.setScene(adminLoginScene);
         currentStage.show();
@@ -61,7 +59,6 @@ public class MainApplication extends Application {
         AnchorPane userLoginPane = loader.load();
         Scene userLoginScene = new Scene(userLoginPane);
 
-        // Use the current stage
         Stage currentStage = (Stage) UserloginButton.getScene().getWindow();
         currentStage.setScene(userLoginScene);
         currentStage.show();
@@ -69,11 +66,10 @@ public class MainApplication extends Application {
 
     @FXML
     private void handleUserSignUpButtonAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("signup.fxml"));
         AnchorPane signUpPane = loader.load();
         Scene signUpScene = new Scene(signUpPane);
 
-        // Use the current stage
         Stage currentStage = (Stage) signUpButton.getScene().getWindow();
         currentStage.setScene(signUpScene);
         currentStage.show();

@@ -10,18 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.fxml.Initializable;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class Login implements Initializable {
+public class Login {
 
     @FXML
     private TextField usernameField;
@@ -35,71 +27,50 @@ public class Login implements Initializable {
     @FXML
     private Button backButton;
 
-    private MongoClient mongoClient;
-    private MongoDatabase database;
-    private MongoCollection<Document> userCollection;
+    private UserLogin userLog;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // Establish MongoDB connection
-        try {
-            mongoClient = MongoClients.create("mongodb://localhost:27017");
-            database = mongoClient.getDatabase("News_Recommendation_System");
-            userCollection = database.getCollection("User_Login");  // Ensure you're using the correct collection
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Database Connection Error", "Could not connect to MongoDB.");
-        }
+    public Login() {
+        // Initialize UserAuthentication with the database and collection names
+        userLog = new UserLogin("News_Recommendation_System", "User_Details");
     }
 
     @FXML
-    private void handleLoginButtonAction(ActionEvent event) throws IOException {
-        // Get the username and password from the text fields
+    private void handleLoginButtonAction(ActionEvent event) {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        // Check if credentials are valid
-        if (checkCredentials(username, password)) {
-            // Load the next scene after successful login
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Articles.fxml"));
-                Scene optionsScene = new Scene(loader.load());
-
-                // Get the current stage (login stage)
-                Stage stage = (Stage) loginButton.getScene().getWindow();
-
-                // Set the scene to the options page scene
-                stage.setScene(optionsScene);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace(); // Print the exception stack trace for debugging
-                showAlert(Alert.AlertType.ERROR, "Page Load Error", "Could not load options page: " + e.getMessage());
+        try {
+            // Use UserAuthentication to validate credentials
+            if (userLog.authenticate(username, password)) {
+                navigateToOptionsPage(event);
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid Username or Password.");
             }
-        } else {
-            // Show error message if credentials are invalid
-            showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid Username or Password.");
+        } catch (RuntimeException e) {
+            showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }
     }
 
-    // Method to check credentials against MongoDB
-    private boolean checkCredentials(String username, String password) {
+    private void navigateToOptionsPage(ActionEvent event) {
         try {
-            // Query MongoDB with Username and Password
-            Document user = userCollection.find(new Document("User Name", username)
-                    .append("Password", password)).first();
-            return user != null;  // Return true if matching document is found
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Login Error", "An error occurred while checking credentials.");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Articles.fxml"));
+            Scene optionsScene = new Scene(loader.load());
+
+            // Switch to the options page
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(optionsScene);
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Navigation Error", "Could not load options page: " + e.getMessage());
         }
-        return false;
     }
 
     @FXML
     public void handleBackButtonAction(ActionEvent event) throws IOException {
-        // Navigate to the previous screen (main screen)
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        Scene mainScene = new Scene(loader.load());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));  // Or your preferred screen
-        Scene scene = new Scene(loader.load());
-        stage.setScene(scene);
+        stage.setScene(mainScene);
         stage.show();
     }
 
@@ -109,5 +80,9 @@ public class Login implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void closeUserAuthConnection() {
+        userLog.closeConnection();
     }
 }
