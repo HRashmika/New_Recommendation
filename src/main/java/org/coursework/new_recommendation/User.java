@@ -5,11 +5,18 @@ public class User {
     private String email;
     private String preferences;
 
-    // Constructor
+    // Parameterized constructor
     public User(String username, String email, String preferences) {
         this.username = username;
         this.email = email;
         this.preferences = preferences;
+    }
+
+    // Default constructor
+    public User() {
+        this.username = "";
+        this.email = "";
+        this.preferences = "";
     }
 
     // Getters and Setters

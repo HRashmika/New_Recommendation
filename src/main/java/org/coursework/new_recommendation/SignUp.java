@@ -14,7 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 
-public class SignUp {
+public class SignUp extends User {
 
     @FXML
     private TextField emailTextField;
@@ -61,6 +61,7 @@ public class SignUp {
 
     // Constructor to initialize MongoDB connection
     public SignUp() {
+        super();
         try {
             mongoClient = MongoClients.create("mongodb://localhost:27017");
             database = mongoClient.getDatabase("News_Recommendation_System");
@@ -79,6 +80,7 @@ public class SignUp {
         stage.setScene(loginScene);
         stage.show();
     }
+
     @FXML
     private void handleSignUpButtonAction(ActionEvent event) {
         String email = emailTextField.getText();
@@ -106,43 +108,39 @@ public class SignUp {
         }
 
         // Collect user preferences
-        StringBuilder preferences = new StringBuilder();
-        if (techCheckBox.isSelected()) preferences.append("Technology, ");
-        if (aiCheckBox.isSelected()) preferences.append("AI, ");
-        if (weatherCheckBox.isSelected()) preferences.append("Weather, ");
-        if (healthcareCheckBox.isSelected()) preferences.append("Healthcare, ");
-        if (sportsCheckBox.isSelected()) preferences.append("Sports, ");
-        if (financeCheckBox.isSelected()) preferences.append("Finance, ");
+        StringBuilder preferencesBuilder = new StringBuilder();
+        if (techCheckBox.isSelected()) preferencesBuilder.append("Technology, ");
+        if (aiCheckBox.isSelected()) preferencesBuilder.append("AI, ");
+        if (weatherCheckBox.isSelected()) preferencesBuilder.append("Weather, ");
+        if (healthcareCheckBox.isSelected()) preferencesBuilder.append("Healthcare, ");
+        if (sportsCheckBox.isSelected()) preferencesBuilder.append("Sports, ");
+        if (financeCheckBox.isSelected()) preferencesBuilder.append("Finance, ");
 
         // Remove the trailing comma and space
-        if (preferences.toString().endsWith(", ")) {
-            preferences.setLength(preferences.length() - 2);
+        if (preferencesBuilder.toString().endsWith(", ")) {
+            preferencesBuilder.setLength(preferencesBuilder.length() - 2);
         }
+
+        // Use inherited setters from User class
+        this.setEmail(email);
+        this.setUsername(username);
+        this.setPreferences(preferencesBuilder.toString());
 
         // Insert into MongoDB
         try {
-            Document userDocument = new Document("email", email)
-                    .append("username", username)
-                    .append("password", password)
-                    .append("preferences", preferences.toString());
+            Document userDocument = new Document("email", this.getEmail())
+                    .append("username", this.getUsername())
+                    .append("password", password) // Password is handled here directly
+                    .append("preferences", this.getPreferences());
             collection.insertOne(userDocument);
 
-            // Show success alert and wait for user acknowledgment
-            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-            successAlert.setTitle("Sign-Up Success");
-            successAlert.setHeaderText(null);
-            successAlert.setContentText("Account created successfully!");
-            successAlert.showAndWait(); // Waits for user to click "OK"
-
-            // Navigate to options page after acknowledgment
+            showAlert(Alert.AlertType.INFORMATION, "Sign-Up Success", "Account created successfully!");
             navigateToOptions();
 
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Sign-Up Error", "Failed to create account: " + e.getMessage());
         }
     }
-
-
 
     @FXML
     private void handleLoginButtonAction(ActionEvent event) throws IOException {

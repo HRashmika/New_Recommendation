@@ -6,12 +6,14 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-public class UserLogin {
+public class UserLogin extends User {
     private MongoClient mongoClient;
     private MongoDatabase database;
     private MongoCollection<Document> userCollection;
 
     public UserLogin(String databaseName, String collectionName) {
+        // Call the default constructor of the User class
+        super();
         try {
             mongoClient = MongoClients.create("mongodb://localhost:27017");
             database = mongoClient.getDatabase(databaseName);
@@ -21,12 +23,22 @@ public class UserLogin {
         }
     }
 
+    // Modify authenticate method to use inherited username and password
     public boolean authenticate(String username, String password) {
         try {
             // Query MongoDB for the user with the provided username and password
             Document user = userCollection.find(new Document("username", username)
                     .append("password", password)).first();
-            return user != null; // Return true if a matching user is found
+
+            if (user != null) {
+                // Set the values for the User class properties (inherited)
+                this.setUsername(user.getString("username"));
+                this.setEmail(user.getString("email"));
+                this.setPreferences(user.getString("preferences"));
+                return true; // Authentication successful
+            } else {
+                return false; // No matching user found
+            }
         } catch (Exception e) {
             throw new RuntimeException("Error during authentication: " + e.getMessage());
         }

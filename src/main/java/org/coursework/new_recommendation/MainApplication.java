@@ -28,6 +28,8 @@ public class MainApplication extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
             AnchorPane root = loader.load();
 
+
+
             // Set up the scene
             primaryStage.setTitle("News Recommendation System");
             primaryStage.setScene(new Scene(root));
