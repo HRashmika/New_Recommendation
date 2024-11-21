@@ -6,10 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -58,20 +55,18 @@ public class SignUp {
     @FXML
     private Button loginButton;
 
-    @FXML
-    private Label errorMessageLabel;
-
     private MongoClient mongoClient;
     private MongoDatabase database;
     private MongoCollection<Document> collection;
 
+    // Constructor to initialize MongoDB connection
     public SignUp() {
         try {
             mongoClient = MongoClients.create("mongodb://localhost:27017");
             database = mongoClient.getDatabase("News_Recommendation_System");
             collection = database.getCollection("User_Details");
         } catch (Exception e) {
-            System.out.println("MongoDB connection failed: " + e.getMessage());
+            showAlert(Alert.AlertType.ERROR, "Database Error", "MongoDB connection failed: " + e.getMessage());
         }
     }
 
@@ -84,7 +79,6 @@ public class SignUp {
         stage.setScene(loginScene);
         stage.show();
     }
-
     @FXML
     private void handleSignUpButtonAction(ActionEvent event) {
         String email = emailTextField.getText();
@@ -92,18 +86,26 @@ public class SignUp {
         String password = passwordTextField.getText();
         String confirmPassword = confirmPasswordTextField.getText();
 
+        // Validate inputs
         if (email.isEmpty() || username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-            errorMessageLabel.setText("Please fill all the fields.");
-            errorMessageLabel.setVisible(true);
+            showAlert(Alert.AlertType.ERROR, "Sign-Up Error", "Please fill in all fields.");
             return;
         }
 
+        // Check if email already exists
+        Document existingUser = collection.find(new Document("email", email)).first();
+        if (existingUser != null) {
+            showAlert(Alert.AlertType.ERROR, "Sign-Up Error", "Email already exists.");
+            return;
+        }
+
+        // Check if passwords match
         if (!password.equals(confirmPassword)) {
-            errorMessageLabel.setText("Passwords do not match.");
-            errorMessageLabel.setVisible(true);
+            showAlert(Alert.AlertType.ERROR, "Sign-Up Error", "Passwords do not match.");
             return;
         }
 
+        // Collect user preferences
         StringBuilder preferences = new StringBuilder();
         if (techCheckBox.isSelected()) preferences.append("Technology, ");
         if (aiCheckBox.isSelected()) preferences.append("AI, ");
@@ -112,24 +114,35 @@ public class SignUp {
         if (sportsCheckBox.isSelected()) preferences.append("Sports, ");
         if (financeCheckBox.isSelected()) preferences.append("Finance, ");
 
+        // Remove the trailing comma and space
         if (preferences.toString().endsWith(", ")) {
             preferences.setLength(preferences.length() - 2);
         }
 
-        Document userDocument = new Document("email", email)
-                .append("username", username)
-                .append("password", password)
-                .append("preferences", preferences.toString());
-
+        // Insert into MongoDB
         try {
+            Document userDocument = new Document("email", email)
+                    .append("username", username)
+                    .append("password", password)
+                    .append("preferences", preferences.toString());
             collection.insertOne(userDocument);
+
+            // Show success alert and wait for user acknowledgment
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Sign-Up Success");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("Account created successfully!");
+            successAlert.showAndWait(); // Waits for user to click "OK"
+
+            // Navigate to options page after acknowledgment
             navigateToOptions();
+
         } catch (Exception e) {
-            System.out.println("Error inserting user: " + e.getMessage());
-            errorMessageLabel.setText("Sign-up failed. Try again.");
-            errorMessageLabel.setVisible(true);
+            showAlert(Alert.AlertType.ERROR, "Sign-Up Error", "Failed to create account: " + e.getMessage());
         }
     }
+
+
 
     @FXML
     private void handleLoginButtonAction(ActionEvent event) throws IOException {
@@ -142,12 +155,21 @@ public class SignUp {
     }
 
     private void navigateToOptions() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Options.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Articles.fxml"));
         AnchorPane optionsPane = loader.load();
         Scene optionsScene = new Scene(optionsPane);
         Stage stage = (Stage) signupButton.getScene().getWindow();
         stage.setScene(optionsScene);
         stage.show();
+    }
+
+    // Utility method to show alerts
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     public void closeMongoClient() {
