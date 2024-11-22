@@ -31,11 +31,11 @@ public class UserLogin extends User {
                     .append("password", password)).first();
 
             if (user != null) {
-                // Set the values for the User class properties (inherited)
+
                 this.setUsername(user.getString("username"));
                 this.setEmail(user.getString("email"));
                 this.setPreferences(user.getString("preferences"));
-                return true; // Authentication successful
+                return true;
             } else {
                 return false; // No matching user found
             }
@@ -43,6 +43,7 @@ public class UserLogin extends User {
             throw new RuntimeException("Error during authentication: " + e.getMessage());
         }
     }
+
 
     public void closeConnection() {
         if (mongoClient != null) {

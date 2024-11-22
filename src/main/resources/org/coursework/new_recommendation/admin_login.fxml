@@ -4,21 +4,26 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.AdminLogin">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../CSS/signup.css" styleClass="anchor-pane-background"  xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.AdminLogin">
    <children>
-      <Text layoutX="73.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin ID" />
-      <Text layoutX="172.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login - Administrator" textAlignment="CENTER" wrappingWidth="272.291015625">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Text>
-      <TextField fx:id="adminIdField" layoutX="165.0" layoutY="125.0" prefHeight="26.0" prefWidth="313.0" />
-      <Text layoutX="73.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
-      <PasswordField fx:id="passwordField" layoutX="165.0" layoutY="188.0" prefHeight="26.0" prefWidth="242.0" />
-      <Button fx:id="backButton" layoutX="21.0" layoutY="23.0" mnemonicParsing="false" text="Back" onAction="#handleBackButtonAction"/>
-      <Button fx:id="loginButton" layoutX="270.0" layoutY="258.0" mnemonicParsing="false" text="Login" onAction="#handleLoginButtonAction"/>
+      <Pane layoutX="55.0" layoutY="76.0" prefHeight="277.0" prefWidth="490.0" style="-fx-background-color: #E0B0FF;">
+         <children>
+            <Text layoutX="43.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin ID" />
+            <Button fx:id="loginButton" layoutX="238.0" layoutY="226.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" style="-fx-background-radius: 10;" text="Login" />
+            <Button fx:id="backButton" layoutX="14.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleBackButtonAction" style="-fx-background-radius: 10;" text="Back" />
+            <PasswordField fx:id="passwordField" layoutX="145.0" layoutY="166.0" prefHeight="26.0" prefWidth="296.0" style="-fx-background-radius: 50;" />
+            <Text layoutX="52.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+            <TextField fx:id="adminIdField" layoutX="145.0" layoutY="102.0" prefHeight="26.0" prefWidth="296.0" style="-fx-background-radius: 50;" />
+            <Text layoutX="138.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login - Administrator" textAlignment="CENTER" wrappingWidth="272.291015625">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

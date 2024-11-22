@@ -1,43 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.SignUp" prefHeight="604.0" prefWidth="750.0">
+<AnchorPane prefHeight="508.0" prefWidth="697.0" styleClass="anchor-pane-background" stylesheets="@../../../CSS/signup.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.SignUp">
+
    <children>
-      <Label fx:id="errorMessageLabel" layoutX="20.0" layoutY="20.0" textFill="red" visible="false" />
-      <Text layoutX="287.0" layoutY="52.0" text="Sign Up" textAlignment="CENTER">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
-      <Text layoutX="86.0" layoutY="101.0" text="Email" />
-      <TextField fx:id="emailTextField" layoutX="186.0" layoutY="83.0" prefHeight="26.0" prefWidth="401.0" />
-      <Text layoutX="86.0" layoutY="146.0" text="User Name" />
-      <TextField fx:id="userNameTextField" layoutX="186.0" layoutY="128.0" prefHeight="26.0" prefWidth="401.0" />
-      <Text layoutX="86.0" layoutY="193.0" text="Password" />
-      <PasswordField fx:id="passwordTextField" layoutX="186.0" layoutY="176.0" prefHeight="26.0" prefWidth="401.0" />
-      <Text layoutX="86.0" layoutY="227.0" text="Confirm Password" />
-      <PasswordField fx:id="confirmPasswordTextField" layoutX="186.0" layoutY="218.0" prefHeight="26.0" prefWidth="401.0" />
-      <Text layoutX="86.0" layoutY="275.0" text="Preferences" />
-      <CheckBox fx:id="techCheckBox" layoutX="186.0" layoutY="260.0" text="Technology" />
-      <CheckBox fx:id="aiCheckBox" layoutX="300.0" layoutY="260.0" text="AI" />
-      <CheckBox fx:id="weatherCheckBox" layoutX="400.0" layoutY="260.0" text="Weather" />
-      <CheckBox fx:id="healthcareCheckBox" layoutX="186.0" layoutY="300.0" text="Healthcare" />
-      <CheckBox fx:id="sportsCheckBox" layoutX="300.0" layoutY="300.0" text="Sports" />
-      <CheckBox fx:id="financeCheckBox" layoutX="400.0" layoutY="300.0" text="Finance" />
-      <Button fx:id="signupButton" layoutX="310.0" layoutY="350.0" text="Signup" onAction="#handleSignUpButtonAction" />
-      <Button fx:id="backButton" layoutX="20.0" layoutY="20.0" text="Back" onAction="#handleBackButtonAction" />
-      <Text layoutX="310.0" layoutY="400.0" text="Already have an account?" />
-      <Button fx:id="loginButton" layoutX="310.0" layoutY="420.0" text="Login" onAction="#handleLoginButtonAction" />
+      <Pane layoutX="61.0" layoutY="58.0" prefHeight="391.0" prefWidth="574.0" style="-fx-background-color: #E0B0FF;">
+         <children>
+            <PasswordField fx:id="confirmPasswordTextField" layoutX="145.0" layoutY="170.0" prefHeight="26.0" prefWidth="336.0" style="-fx-background-radius: 50;" />
+            <Label fx:id="errorMessageLabel" textFill="red" visible="false" />
+            <Line endX="100.0" layoutX="302.0" layoutY="321.0" startX="-100.0" />
+            <Button fx:id="loginButton" layoutX="313.0" layoutY="346.0" onAction="#handleLoginButtonAction" style="-fx-background-radius: 10;" text="Login" />
+            <Text layoutX="159.0" layoutY="363.0" text="Already have an account?" />
+            <Button fx:id="backButton" layoutX="20.0" layoutY="17.0" onAction="#handleBackButtonAction" style="-fx-background-radius: 10;" text="Back" />
+            <CheckBox fx:id="financeCheckBox" layoutX="364.0" layoutY="253.0" text="Finance" />
+            <Button fx:id="signupButton" layoutX="276.0" layoutY="287.0" onAction="#handleSignUpButtonAction" style="-fx-background-radius: 10;" text="Signup" />
+            <CheckBox fx:id="sportsCheckBox" layoutX="160.0" layoutY="253.0" text="Sports" />
+            <CheckBox fx:id="aiCheckBox" layoutX="269.0" layoutY="253.0" text="Politics" />
+            <CheckBox fx:id="healthcareCheckBox" layoutX="364.0" layoutY="214.0" text="Healthcare" />
+            <CheckBox fx:id="weatherCheckBox" layoutX="269.0" layoutY="214.0" text="Weather" />
+            <CheckBox fx:id="techCheckBox" layoutX="160.0" layoutY="214.0" text="Technology" />
+            <Text layoutX="29.0" layoutY="244.0" text="Preferences" />
+            <Text layoutX="13.0" layoutY="188.0" text="Confirm Password" />
+            <PasswordField fx:id="passwordTextField" layoutX="145.0" layoutY="135.0" prefHeight="26.0" prefWidth="336.0" style="-fx-background-radius: 50;" />
+            <Text layoutX="24.0" layoutY="152.0" text="Password" />
+            <Text layoutX="20.0" layoutY="110.0" text="User Name" />
+            <TextField fx:id="userNameTextField" layoutX="145.0" layoutY="93.0" prefHeight="26.0" prefWidth="336.0" style="-fx-background-radius: 50;" />
+            <Text layoutX="35.0" layoutY="73.0" text="Email" />
+            <TextField fx:id="emailTextField" layoutX="145.0" layoutY="56.0" prefHeight="26.0" prefWidth="336.0" style="-fx-background-radius: 50;" />
+            <Text layoutX="227.0" layoutY="39.0" text="Sign Up" textAlignment="CENTER">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
-
-

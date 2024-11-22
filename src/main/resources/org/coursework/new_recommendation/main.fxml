@@ -8,32 +8,22 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background-pane" stylesheets="@../../../CSS/main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.MainApplication">
     <children>
-        <Pane layoutY="116.0" prefHeight="251.0" prefWidth="605.0" style="-fx-background-color: #E0B0FF;">
+        <Pane layoutX="60.0" layoutY="82.0" prefHeight="230.0" prefWidth="468.0" style="-fx-background-color: rgba(224, 176, 255, 0.5);">
+
             <children>
-                <!-- User Pane -->
-                <Pane layoutX="23.0" layoutY="59.0" prefHeight="144.0" prefWidth="439.0" style="-fx-opacity: 50;">
-                    <children>
-                        <Button fx:id="UserloginButton" layoutX="325.0" layoutY="67.0" mnemonicParsing="false" onAction="#handleUserLoginButtonAction" text="Login" />
-                        <Button fx:id="signUpButton" layoutX="183.0" layoutY="67.0" mnemonicParsing="false" onAction="#handleUserSignUpButtonAction" text="Sign Up" />
-                        <Text layoutX="267.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Text>
-                    </children>
-                </Pane>
-      
-                      <Pane layoutX="89.0" layoutY="151.0" prefHeight="131.0" prefWidth="421.0">
-      
-                          <children>
-                        <Button fx:id="loginButton" layoutX="197.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" text="Login" />
-                        <Text layoutX="166.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Text>
-                    </children>
-                </Pane>
+                  <Button fx:id="signUpButton" layoutX="268.0" layoutY="94.0" mnemonicParsing="false" onAction="#handleUserSignUpButtonAction" text="Sign Up" />
+                  <Button fx:id="UserloginButton" layoutX="146.0" layoutY="94.0" mnemonicParsing="false" onAction="#handleUserLoginButtonAction" text="Login" />
+                  <Text layoutX="218.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User">
+                      <font>
+                          <Font size="18.0" />
+                      </font>
+                  </Text>
+                  <Button fx:id="loginButton" layoutX="223.0" layoutY="175.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" text="Login" />
+                  <Text layoutX="182.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator">
+                      <font>
+                          <Font size="18.0" />
+                      </font>
+                  </Text>
             </children>
         </Pane>
     </children>
