@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CSV {
     public static void main(String[] args) {
-        String csvFile = "C:/Users/User/IdeaProjects/New_Recommendation/src/main/resources/org/coursework/new_recommendation/Data_CSV/DataSet.csv";
+        String csvFile = "src/main/resources/Data_CSV/DataSet.csv";
 
         // Connecting to the MongoDB
         MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
@@ -20,6 +20,7 @@ public class CSV {
 
         // Reading the CSV file
         try (CSVReader csvReader = new CSVReader(new FileReader(csvFile))) {
+
             String[] header = csvReader.readNext();  // Read the header row
             if (header == null) {
                 System.err.println("The CSV file does not have a header row.");

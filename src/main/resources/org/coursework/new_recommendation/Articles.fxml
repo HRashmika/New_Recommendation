@@ -4,23 +4,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.Articles">
     <children>
-        <StackPane layoutX="189.0" prefHeight="413.0" prefWidth="642.0">
+        <Button fx:id="homeButton" layoutX="44.0" layoutY="66.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Home" />
+        <Button fx:id="recommendationsButton" layoutX="34.0" layoutY="193.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="106.0" text="Recommendations" />
+        <Button fx:id="savedButton" layoutX="64.0" layoutY="256.0" mnemonicParsing="false" text="Saved" />
+        <Button fx:id="profileButton" layoutX="62.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleProfileButtonAction" text="Profile" />
+        <Button fx:id="articlesButton" layoutX="60.0" layoutY="126.0" mnemonicParsing="false" text="Articles" onAction="#handleArticlesButtonAction" />
+
+        <!-- Content Pane -->
+        <StackPane fx:id="contentPane" layoutX="189.0" layoutY="24.0" prefHeight="356.0" prefWidth="400.0">
             <children>
-                <Pane prefHeight="200.0" prefWidth="200.0" />
-                <Pane prefHeight="338.0" prefWidth="589.0" />
-            <Pane prefHeight="397.0" prefWidth="600.0">
-               <children>
-                  <Pane layoutX="-217.0" layoutY="-23.0" prefHeight="200.0" prefWidth="200.0" />
-               </children></Pane>
+                <!-- Placeholder for Articles Section -->
+                <Pane fx:id="articlesPane" visible="false">
+                    <children>
+                        <Button fx:id="technologyButton" layoutX="40.0" layoutY="24.0" mnemonicParsing="false" text="Technology" onAction="#handleTechnologyButtonAction" />
+                        <Button fx:id="sportsButton" layoutX="190.0" layoutY="24.0" mnemonicParsing="false" text="Sports" onAction="#handleSportsButtonAction" />
+                        <Button fx:id="healthButton" layoutX="303.0" layoutY="24.0" mnemonicParsing="false" text="Health" onAction="#handleHealthButtonAction" />
+                        <Pane fx:id="articlesDisplayPane" layoutY="80.0" prefHeight="276.0" prefWidth="400.0" />
+                    </children>
+                </Pane>
             </children>
         </StackPane>
-        <Button fx:id="homeButton" layoutX="44.0" layoutY="66.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Home" />
-        <Button fx:id="recommendationsButton" layoutX="34.0" layoutY="130.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="106.0" text="Recommendations" />
-        <Button fx:id="savedButton" layoutX="64.0" layoutY="200.0" mnemonicParsing="false" text="Saved" />
-        <Button fx:id="profileButton" layoutX="62.0" layoutY="279.0" mnemonicParsing="false" text="Profile" onAction="#handleProfileButtonAction" />
-
     </children>
 </AnchorPane>
+
