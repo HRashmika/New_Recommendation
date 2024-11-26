@@ -18,7 +18,8 @@ import org.bson.Document;
 
 import java.io.IOException;
 
-public class AdminLogin {
+public class
+AdminLogin {
 
     @FXML
     private Button backButton;
@@ -38,7 +39,7 @@ public class AdminLogin {
 
     @FXML
     private void initialize() {
-        // Establish MongoDB connection
+
         try {
             mongoClient = MongoClients.create("mongodb://localhost:27017");
             database = mongoClient.getDatabase("News_Recommendation_System");
@@ -49,14 +50,12 @@ public class AdminLogin {
     }
     @FXML
     private void handleLoginButtonAction(ActionEvent event) throws IOException {
-        // Get the Admin ID and Password from the text fields
         String adminId = adminIdField.getText();
         String password = passwordField.getText();
 
         // Check if credentials are valid
         if (checkCredentials(adminId, password)) {
 
-            // Load the main page scene
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Articles.fxml"));
 

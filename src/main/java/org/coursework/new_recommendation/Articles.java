@@ -3,21 +3,30 @@ package org.coursework.new_recommendation;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
-
+import org.bson.Document;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import org.bson.Document;
 
-import java.util.ArrayList;
+import java.awt.*;
 import java.util.List;
+import java.util.Map;
 
 public class Articles {
+
+    @FXML
+    private Button homeButton;
+
+    @FXML
+    private Button recommendationsButton;
+
+    @FXML
+    private Button savedButton;
 
     @FXML
     private Button profileButton;
@@ -26,80 +35,97 @@ public class Articles {
     private Button articlesButton;
 
     @FXML
+    private Button technologyButton;
+
+    @FXML
+    private Button sportsButton;
+
+    @FXML
+    private Button healthButton;
+
+    @FXML
+    private Button politicsButton;
+
+    @FXML
+    private Button financeButton;
+
+    @FXML
+    private Button weatherButton;
+
+    @FXML
+    private TextField usernameField;
+
+    @FXML
+    private TextField emailField;
+
+    @FXML
+    private TextField preferencesField;
+
+    @FXML
     private StackPane contentPane;
+
+    @FXML
+    private Pane profilePane;
 
     @FXML
     private Pane articlesPane;
 
     @FXML
-    private Pane articlesDisplayPane;
+    private ListView<String> articlesListView; // ListView to display articles
 
-    private User currentUser;
-
+    private final ArticleProcess articleProcess = new ArticleProcess();
+    private Map<String, List<Document>> categorizedArticles;
 
     @FXML
     private void handleArticlesButtonAction() {
+
+        categorizedArticles = articleProcess.processArticles();
         articlesPane.setVisible(true);
+        articlesListView.getItems().clear();
     }
 
     @FXML
     private void handleTechnologyButtonAction() {
-        displayArticlesByCategory("Technology");
+        displayArticlesByCategory("technology");
     }
 
     @FXML
     private void handleSportsButtonAction() {
-        displayArticlesByCategory("Sports");
+        displayArticlesByCategory("sports");
     }
 
     @FXML
     private void handleHealthButtonAction() {
-        displayArticlesByCategory("Health");
+        displayArticlesByCategory("health");
     }
-
+    @FXML
+    private void handlePoliticsButtonAction() {
+        displayArticlesByCategory("politics");
+    }
     @FXML
     private void handleFinanceButtonAction() {
-        displayArticlesByCategory("Finance");
+        displayArticlesByCategory("finance");
+    }
+    @FXML
+    private void handleWeatherButtonAction() {
+        displayArticlesByCategory("weather");
     }
 
-    // Fetch and display articles by category
+
     private void displayArticlesByCategory(String category) {
-        // Clear the display pane
-        articlesDisplayPane.getChildren().clear();
+        articlesListView.getItems().clear(); // Clear previous list
 
-        List<Document> articles = getArticlesByCategory(category);
-        if (articles.isEmpty()) {
-            Text noArticlesText = new Text("No articles found for category: " + category);
-            noArticlesText.setLayoutY(20); // Position text within the pane
-            articlesDisplayPane.getChildren().add(noArticlesText);
-            return;
-        }
+        if (categorizedArticles != null && categorizedArticles.containsKey(category)) {
+            List<Document> articles = categorizedArticles.get(category);
 
-        // Display articles as text
-        double yOffset = 10;
-        for (Document article : articles) {
-            String articleTitle = article.getString("Heading"); // Adjust key based on your MongoDB schema
-            Text articleText = new Text(articleTitle);
-            articleText.setLayoutY(yOffset);
-            articlesDisplayPane.getChildren().add(articleText);
-            yOffset += 20; // Adjust spacing between articles
+            for (Document article : articles) {
+                articlesListView.getItems().add(article.getString("Heading"));
+            }
+        } else {
+            showError("No articles available for the selected category.");
         }
     }
 
-    public List<Document> getArticlesByCategory(String category) {
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
-            MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
-            MongoCollection<Document> collection = database.getCollection("News Articles");
-
-            return collection.find(new Document("Category", category)).into(new ArrayList<>());
-        } catch (Exception e) {
-            e.printStackTrace();
-            showError("Failed to fetch articles: " + e.getMessage());
-            return new ArrayList<>();
-        }
-    }
-
-    // Utility method to show error messages
     private void showError(String message) {
         Alert errorAlert = new Alert(Alert.AlertType.ERROR);
         errorAlert.setTitle("Error");
@@ -108,25 +134,39 @@ public class Articles {
         errorAlert.showAndWait();
     }
 
-    // Method to set the current user
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
-    }
-
     @FXML
     private void handleProfileButtonAction() {
-        if (currentUser != null) {
-            Alert profileAlert = new Alert(Alert.AlertType.INFORMATION);
-            profileAlert.setTitle("User Profile");
-            profileAlert.setHeaderText("Profile Details");
-            profileAlert.setContentText(
-                    "Username: " + currentUser.getUsername() + "\n" +
-                            "Email: " + currentUser.getEmail() + "\n" +
-                            "Preferences: " + currentUser.getPreferences()
-            );
-            profileAlert.showAndWait();
-        } else {
-            showError("User profile not available.");
+        String currentUsername = MainApplication.getLoginUser();
+
+
+        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
+            MongoDatabase database = mongoClient.getDatabase("New_Recommendation_System");
+            MongoCollection<Document> userCollection = database.getCollection("User_Details");
+
+
+            Document user = userCollection.find(new Document("username", currentUsername)).first();
+
+            if (user != null) {
+                String email = user.getString("email");
+                String username = user.getString("username");
+                String preferences = user.getString("preferences");
+
+
+                Alert profileAlert = new Alert(Alert.AlertType.INFORMATION);
+                profileAlert.setTitle("User Profile");
+                profileAlert.setHeaderText("Profile Details");
+                profileAlert.setContentText(
+                        "Username: " + username + "\n" +
+                                "Email: " + email + "\n" +
+                                "Preferences: " + (preferences != null ? preferences : "None")
+                );
+                profileAlert.showAndWait();
+            } else {
+                showError("User details not found.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("An error occurred while fetching profile details.");
         }
     }
 }

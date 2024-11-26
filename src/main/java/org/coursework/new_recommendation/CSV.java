@@ -16,12 +16,12 @@ public class CSV {
         // Connecting to the MongoDB
         MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
         MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
-        MongoCollection<Document> collection = database.getCollection("News Articles");
+        MongoCollection<Document> collection = database.getCollection("News_Articles");
 
         // Reading the CSV file
         try (CSVReader csvReader = new CSVReader(new FileReader(csvFile))) {
 
-            String[] header = csvReader.readNext();  // Read the header row
+            String[] header = csvReader.readNext();
             if (header == null) {
                 System.err.println("The CSV file does not have a header row.");
                 return;
@@ -41,7 +41,7 @@ public class CSV {
                 }
             }
 
-            // Inserting the data into MongoDB only once ****
+
             if (!documents.isEmpty()) {
                 collection.insertMany(documents); // Only insert once
                 System.out.println("Data inserted successfully.");

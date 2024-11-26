@@ -21,6 +21,17 @@ public class MainApplication extends Application {
     @FXML
     private Button UserloginButton;
 
+    private static String loginUser;
+
+    public static String getLoginUser() {
+        return loginUser;
+    }
+
+
+    public static void setLoginUser(String username) {
+        loginUser = username;
+    }
+
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -40,9 +51,7 @@ public class MainApplication extends Application {
         }
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+
 
     @FXML
     private void handleLoginButtonAction(ActionEvent event) throws IOException {
@@ -59,6 +68,7 @@ public class MainApplication extends Application {
     private void handleUserLoginButtonAction(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         AnchorPane userLoginPane = loader.load();
+        loginUser = "sample";
         Scene userLoginScene = new Scene(userLoginPane);
 
         Stage currentStage = (Stage) UserloginButton.getScene().getWindow();
@@ -76,4 +86,8 @@ public class MainApplication extends Application {
         currentStage.setScene(signUpScene);
         currentStage.show();
     }
+    public static void main(String[] args) {
+        launch(args);
+    }
+
 }

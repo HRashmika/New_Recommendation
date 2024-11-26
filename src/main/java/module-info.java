@@ -6,6 +6,7 @@ module org.coursework.new_recommendation {
     requires org.mongodb.driver.core;
     requires org.json;
     requires com.opencsv;
+    requires java.desktop;
 
 
     opens org.coursework.new_recommendation to javafx.fxml;

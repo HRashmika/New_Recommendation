@@ -1,0 +1,7 @@
+.anchor-pane-background {
+    -fx-background-image: url('/images/articles.jpg');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: #E0B0FF;
+}

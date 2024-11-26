@@ -4,14 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="97f9d708-7c25-46e2-a6d4-f27559e7dabc" name="Changes" comment="commit">
+    <list default="true" id="97f9d708-7c25-46e2-a6d4-f27559e7dabc" name="Changes" comment="Categorizing the articles">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/CSS/articles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/AdminLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/AdminLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleAPI.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleProcess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleStore.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Articles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Articles.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/CSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/CSV.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/UserLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/UserLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/UserLogin.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/Articles.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/Articles.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/administration.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/administration.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +81,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.database.main&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -132,7 +139,14 @@
       <workItem from="1732347025409" duration="43000" />
       <workItem from="1732465509308" duration="104000" />
       <workItem from="1732504059048" duration="4309000" />
-      <workItem from="1732529044620" duration="2908000" />
+      <workItem from="1732529044620" duration="3024000" />
+      <workItem from="1732576316230" duration="3094000" />
+      <workItem from="1732587548704" duration="3000" />
+      <workItem from="1732587563504" duration="24000" />
+      <workItem from="1732587599900" duration="4079000" />
+      <workItem from="1732599059645" duration="1860000" />
+      <workItem from="1732601595631" duration="2369000" />
+      <workItem from="1732616140691" duration="734000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -278,7 +292,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732465597479</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Categorizing the articles">
+      <option name="closed" value="true" />
+      <created>1732532074265</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1732532074265</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,7 +332,8 @@
     <MESSAGE value="Making the GUI" />
     <MESSAGE value="Connnecting the classes" />
     <MESSAGE value="commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+    <MESSAGE value="Categorizing the articles" />
+    <option name="LAST_COMMIT_MESSAGE" value="Categorizing the articles" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
