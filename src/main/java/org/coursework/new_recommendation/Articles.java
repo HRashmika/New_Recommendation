@@ -12,7 +12,6 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-
 import java.awt.*;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +46,7 @@ public class Articles {
     private Button politicsButton;
 
     @FXML
-    private Button financeButton;
+    private Button entertainmentButton;
 
     @FXML
     private Button weatherButton;
@@ -78,7 +77,6 @@ public class Articles {
 
     @FXML
     private void handleArticlesButtonAction() {
-
         categorizedArticles = articleProcess.processArticles();
         articlesPane.setVisible(true);
         articlesListView.getItems().clear();
@@ -98,19 +96,21 @@ public class Articles {
     private void handleHealthButtonAction() {
         displayArticlesByCategory("health");
     }
+
     @FXML
     private void handlePoliticsButtonAction() {
         displayArticlesByCategory("politics");
     }
+
     @FXML
-    private void handleFinanceButtonAction() {
-        displayArticlesByCategory("finance");
+    private void handleEntertainmentButtonAction() {
+        displayArticlesByCategory("entertainment");
     }
+
     @FXML
     private void handleWeatherButtonAction() {
         displayArticlesByCategory("weather");
     }
-
 
     private void displayArticlesByCategory(String category) {
         articlesListView.getItems().clear(); // Clear previous list
@@ -119,7 +119,13 @@ public class Articles {
             List<Document> articles = categorizedArticles.get(category);
 
             for (Document article : articles) {
-                articlesListView.getItems().add(article.getString("Heading"));
+                // Ensure "headline" is the correct field name from the MongoDB document
+                String headline = article.getString("headline");
+                if (headline != null) {
+                    articlesListView.getItems().add(headline);
+                } else {
+                    showError("Article headline is missing.");
+                }
             }
         } else {
             showError("No articles available for the selected category.");
@@ -138,11 +144,9 @@ public class Articles {
     private void handleProfileButtonAction() {
         String currentUsername = MainApplication.getLoginUser();
 
-
         try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
             MongoDatabase database = mongoClient.getDatabase("New_Recommendation_System");
             MongoCollection<Document> userCollection = database.getCollection("User_Details");
-
 
             Document user = userCollection.find(new Document("username", currentUsername)).first();
 
@@ -150,7 +154,6 @@ public class Articles {
                 String email = user.getString("email");
                 String username = user.getString("username");
                 String preferences = user.getString("preferences");
-
 
                 Alert profileAlert = new Alert(Alert.AlertType.INFORMATION);
                 profileAlert.setTitle("User Profile");

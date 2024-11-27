@@ -44,7 +44,7 @@ public class SignUp extends User {
     private CheckBox sportsCheckBox;
 
     @FXML
-    private CheckBox financeCheckBox;
+    private CheckBox entertainmentCheckBox;
 
     @FXML
     private Button signupButton;
@@ -114,7 +114,7 @@ public class SignUp extends User {
         if (weatherCheckBox.isSelected()) preferencesBuilder.append("Weather, ");
         if (healthcareCheckBox.isSelected()) preferencesBuilder.append("Healthcare, ");
         if (sportsCheckBox.isSelected()) preferencesBuilder.append("Sports, ");
-        if (financeCheckBox.isSelected()) preferencesBuilder.append("Finance, ");
+        if (entertainmentCheckBox.isSelected()) preferencesBuilder.append("Finance, ");
 
         // Remove the trailing comma and space
         if (preferencesBuilder.toString().endsWith(", ")) {

@@ -17,9 +17,10 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-public class
-AdminLogin {
+public class AdminLogin {
 
     @FXML
     private Button backButton;
@@ -39,8 +40,8 @@ AdminLogin {
 
     @FXML
     private void initialize() {
-
         try {
+            // Connect to MongoDB
             mongoClient = MongoClients.create("mongodb://localhost:27017");
             database = mongoClient.getDatabase("News_Recommendation_System");
             adminCollection = database.getCollection("Admin_Login");
@@ -48,46 +49,59 @@ AdminLogin {
             showAlert(Alert.AlertType.ERROR, "Database Connection Error", "Could not connect to MongoDB.");
         }
     }
+
     @FXML
     private void handleLoginButtonAction(ActionEvent event) throws IOException {
         String adminId = adminIdField.getText();
         String password = passwordField.getText();
 
-        // Check if credentials are valid
         if (checkCredentials(adminId, password)) {
+            recordLoginTime(adminId);
 
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Articles.fxml"));
-
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Administration.fxml"));
                 Scene mainPageScene = new Scene(loader.load());
 
+                Administration administrationController = loader.getController();
+                administrationController.setCurrentAdminUsername(adminId);
+
                 Stage stage = (Stage) loginButton.getScene().getWindow();
-
-
                 stage.setScene(mainPageScene);
                 stage.show();
             } catch (IOException e) {
-                e.printStackTrace(); // Print the exception stack trace for debugging , (optional)
+                e.printStackTrace();
                 showAlert(Alert.AlertType.ERROR, "Page Load Error", "Could not load main page: " + e.getMessage());
             }
         } else {
-
             showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid Admin ID or Password.");
         }
     }
 
-
-    // Method to check credentials against MongoDB
     private boolean checkCredentials(String adminId, String password) {
         try {
             // Query MongoDB with Admin ID and Password
             Document admin = adminCollection.find(new Document("Admin ID", adminId)
                     .append("Password", password)).first();
-            return admin != null;  // Return true if matching document is found
+            return admin != null; // Return true if matching document is found
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Login Error", "An error occurred while checking credentials.");
         }
         return false;
+    }
+
+    private void recordLoginTime(String adminId) {
+        try {
+            // Get the current timestamp
+            String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+            // Update the admin document to add the current time to the "loginTimes" array
+            adminCollection.updateOne(
+                    new Document("Admin ID", adminId),
+                    new Document("$push", new Document("loginTimes", currentTime))
+            );
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred while recording login time.");
+        }
     }
 
     @FXML

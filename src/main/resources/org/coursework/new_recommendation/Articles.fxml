@@ -28,7 +28,7 @@
                                 <Button fx:id="sportsButton" mnemonicParsing="false" onAction="#handleSportsButtonAction" text="Sports" />
                                 <Button fx:id="healthButton" mnemonicParsing="false" onAction="#handleHealthButtonAction" text="Health" />
                                 <Button fx:id="politicsButton" mnemonicParsing="false" onAction="#handlePoliticsButtonAction" text="Politics" />
-                                <Button fx:id="financeButton" mnemonicParsing="false" onAction="#handleFinanceButtonAction" text="Finance" />
+                                <Button fx:id="entertainmentButton" mnemonicParsing="false" onAction="#handleEntertainmentButtonAction" text="Entertainment" />
                                 <Button fx:id="weatherButton" mnemonicParsing="false" onAction="#handleWeatherButtonAction" text="Weather" />
                             </children>
                         </HBox>
