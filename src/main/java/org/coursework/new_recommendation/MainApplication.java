@@ -32,16 +32,14 @@ public class MainApplication extends Application {
         loginUser = username;
     }
 
+
+
     @Override
     public void start(Stage primaryStage) {
         try {
-            // Load the FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
             AnchorPane root = loader.load();
 
-
-
-            // Set up the scene
             primaryStage.setTitle("News Recommendation System");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();

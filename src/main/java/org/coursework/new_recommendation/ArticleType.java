@@ -1,15 +1,15 @@
 package org.coursework.new_recommendation;
 
 public class ArticleType {
-    private String heading;
-    private String shortDescription;
-    private String authors;
-    private String date;
-    private String category;
-    private String link;
+    private final String headline;
+    private final String shortDescription;
+    private final String authors;
+    private final String date;
+    private final String category;
+    private final String link;
 
-    public ArticleType(String heading, String shortDescription, String authors, String date, String category, String link) {
-        this.heading = heading;
+    public ArticleType(String headline, String shortDescription, String authors, String date, String category, String link) {
+        this.headline = headline;
         this.shortDescription = shortDescription;
         this.authors = authors;
         this.date = date;
@@ -17,8 +17,8 @@ public class ArticleType {
         this.link = link;
     }
 
-    public String getHeading() {
-        return heading;
+    public String getHeadline() {
+        return headline;
     }
 
     public String getShortDescription() {

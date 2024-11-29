@@ -57,27 +57,22 @@ public class Login extends User {
 
     public boolean authenticate(String username, String password) {
         try {
-            // Query MongoDB for the user with the provided username and password
             Document user = userDetailsCollection.find(new Document("username", username)
                     .append("password", password)).first();
 
             if (user != null) {
-                // Set inherited fields
                 this.setUsername(user.getString("username"));
                 this.setEmail(user.getString("email"));
                 this.setPreferences(user.getString("preferences"));
 
-                // Record the login time
                 String currentTime = LocalDateTime.now()
                         .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-                // Update the user's last login time in the User_Details collection
                 userDetailsCollection.updateOne(
                         new Document("username", username),
                         new Document("$set", new Document("loginTime", currentTime))
                 );
 
-                // Append the login time to the User_Login collection
                 userLoginCollection.updateOne(
                         Filters.and(
                                 Filters.eq("username", username),
@@ -116,13 +111,15 @@ public class Login extends User {
         }
     }
 
-    // Navigate to the options page
     private void navigateToOptionsPage(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Articles.fxml"));
             Scene optionsScene = new Scene(loader.load());
 
-            // Switch to the options page
+            Articles articlesController = loader.getController();
+
+            articlesController.setCurrentUser(this.getUsername());
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(optionsScene);
             stage.show();
@@ -130,6 +127,7 @@ public class Login extends User {
             showAlert(Alert.AlertType.ERROR, "Navigation Error", "Could not load options page: " + e.getMessage());
         }
     }
+
 
     // Handle back button click
     @FXML

@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
@@ -56,9 +57,20 @@ public class Administration {
     private Button profileButton;
 
     private String currentAdminUsername = "admin123";
+    @FXML
+    private Button addArticleButton;
+    private Scene mainScene;
+
+    @FXML
+    private TextField headlineField, shortDescriptionField, authorsField, dateField, linkField;
+
+
+
 
     @FXML
     public void initialize() {
+        mainScene = articleManagementPane.getScene();
+
         userManagementButton.setOnAction(event -> {
             loadUserDetails();
             userManagementPane.setVisible(true);
@@ -79,7 +91,12 @@ public class Administration {
             userManagementPane.setVisible(false);
             articleManagementPane.setVisible(false);
         });
+
         loginTimesCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
+        articleList = FXCollections.observableArrayList();
+        loadCategorizedArticles();
+        addArticleButton.setOnAction(event -> handleAddArticleButtonAction());
+
     }
 
     private void loadAdminProfile() {
@@ -100,9 +117,10 @@ public class Administration {
             e.printStackTrace();
         }
     }
+
     public void setCurrentAdminUsername(String adminUsername) {
         this.currentAdminUsername = adminUsername;
-        loadAdminProfile(); // Automatically load the profile when set
+        loadAdminProfile();
     }
 
 
@@ -157,6 +175,7 @@ public class Administration {
 
         userTable.getColumns().addAll(usernameCol, emailCol, preferencesCol, loginTimeCol);
     }
+
     private void loadCategorizedArticles() {
         articleList = FXCollections.observableArrayList();
 
@@ -165,13 +184,13 @@ public class Administration {
 
         categorizedArticles.forEach((category, articles) -> {
             for (Document article : articles) {
-                String heading = article.getString("Heading");
+                String headline = article.getString("headline");
                 String shortDescription = article.getString("short description");
                 String authors = article.getString("authors");
-                String date = article.getString("date"); // Assuming "date" exists in MongoDB
+                String date = article.getString("date");
                 String link = article.getString("link");
 
-                articleList.add(new ArticleType(heading, shortDescription, authors, date, category, link));
+                articleList.add(new ArticleType(headline, shortDescription, authors, date, category, link));
             }
         });
 
@@ -182,25 +201,93 @@ public class Administration {
     private void setupArticleTable() {
         articleTable.getColumns().clear();
 
-        TableColumn<ArticleType, String> headingCol = new TableColumn<>("Heading");
-        headingCol.setCellValueFactory(new PropertyValueFactory<>("heading"));
+        TableColumn<ArticleType, String> headlineCol = new TableColumn<>("Headline");
+        headlineCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHeadline()));
 
         TableColumn<ArticleType, String> shortDescriptionCol = new TableColumn<>("Short Description");
-        shortDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("shortDescription"));
+        shortDescriptionCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getShortDescription()));
 
         TableColumn<ArticleType, String> authorsCol = new TableColumn<>("Authors");
-        authorsCol.setCellValueFactory(new PropertyValueFactory<>("authors"));
+        authorsCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAuthors()));
 
         TableColumn<ArticleType, String> dateCol = new TableColumn<>("Date");
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        dateCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDate()));
 
         TableColumn<ArticleType, String> categoryCol = new TableColumn<>("Category");
-        categoryCol.setCellValueFactory(new PropertyValueFactory<>("category"));
+        categoryCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
 
         TableColumn<ArticleType, String> linkCol = new TableColumn<>("Link");
-        linkCol.setCellValueFactory(new PropertyValueFactory<>("link"));
+        linkCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLink()));
 
-        articleTable.getColumns().addAll(headingCol, shortDescriptionCol, authorsCol, dateCol, categoryCol, linkCol);
+        articleTable.getColumns().addAll(headlineCol, shortDescriptionCol, authorsCol, dateCol, categoryCol, linkCol);
+    }
+    @FXML
+    private void handleAddArticleButtonAction() {
+        String headline = headlineField.getText();
+        String shortDescription = shortDescriptionField.getText();
+        String authors = authorsField.getText();
+        String date = dateField.getText();
+        String link = linkField.getText();
+
+        if (headline.isEmpty() || shortDescription.isEmpty() || authors.isEmpty() || date.isEmpty() || link.isEmpty()) {
+            showError("All fields must be filled out.");
+            return;
+        }
+
+        // Create a new document for the article
+        Document articleDoc = new Document("headline", headline)
+                .append("short description", shortDescription)
+                .append("authors", authors)
+                .append("date", date)
+                .append("link", link);
+
+        // Insert the article into the MongoDB database
+        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
+            MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
+            MongoCollection<Document> articleCollection = database.getCollection("News_Articles");
+            articleCollection.insertOne(articleDoc);
+        }
+
+        // Categorize and refresh the article list
+        categorizeAndRefreshArticles();
+
+        // Clear input fields
+        clearFields();
+    }
+
+    private void categorizeAndRefreshArticles() {
+        ArticleProcess articleProcess = new ArticleProcess();
+        Map<String, List<Document>> categorizedArticles = articleProcess.processArticles();
+
+        articleList.clear();
+        categorizedArticles.forEach((category, articles) -> {
+            for (Document article : articles) {
+                String headline = article.getString("headline");
+                String shortDescription = article.getString("short description");
+                String authors = article.getString("authors");
+                String date = article.getString("date");
+                String link = article.getString("link");
+
+                articleList.add(new ArticleType(headline, shortDescription, authors, date, category, link));
+            }
+        });
+
+        articleTable.setItems(articleList);
+    }
+
+    private void clearFields() {
+        headlineField.clear();
+        shortDescriptionField.clear();
+        authorsField.clear();
+        dateField.clear();
+        linkField.clear();
+    }
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
 }

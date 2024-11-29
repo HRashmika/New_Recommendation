@@ -63,8 +63,7 @@ public class ArticleProcess {
 
                 while (cursor.hasNext()) {
                     Document article = cursor.next();
-                    String heading = article.getString("headline"); // Use "headline" instead of "Heading"
-
+                    String heading = article.getString("headline");
                     List<String> keywords = extractKeywords(heading);
                     String category = categorizeKeywords(keywords);
 
