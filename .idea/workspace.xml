@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="97f9d708-7c25-46e2-a6d4-f27559e7dabc" name="Changes" comment="Making the administration parts and changing the CSV to a JSON dataset">
+    <list default="true" id="97f9d708-7c25-46e2-a6d4-f27559e7dabc" name="Changes" comment="Creating the profile parts and storing the liked articles">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Administration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Administration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleProcess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleProcess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Articles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Articles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/Articles.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/Articles.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/administration.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/administration.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,6 +149,9 @@
       <workItem from="1732858120814" duration="2227000" />
       <workItem from="1732868212367" duration="1814000" />
       <workItem from="1732871816913" duration="1585000" />
+      <workItem from="1732873951576" duration="269000" />
+      <workItem from="1732937404830" duration="880000" />
+      <workItem from="1732944312242" duration="536000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -326,7 +321,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732725182822</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Creating the profile parts and storing the liked articles">
+      <option name="closed" value="true" />
+      <created>1732874210523</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1732874210523</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,7 +364,8 @@
     <MESSAGE value="Categorizing the articles" />
     <MESSAGE value="Categorization using key word extraction and other" />
     <MESSAGE value="Making the administration parts and changing the CSV to a JSON dataset" />
-    <option name="LAST_COMMIT_MESSAGE" value="Making the administration parts and changing the CSV to a JSON dataset" />
+    <MESSAGE value="Creating the profile parts and storing the liked articles" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creating the profile parts and storing the liked articles" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

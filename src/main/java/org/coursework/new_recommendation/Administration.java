@@ -93,9 +93,7 @@ public class Administration {
         });
 
         loginTimesCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
-        articleList = FXCollections.observableArrayList();
-        loadCategorizedArticles();
-        addArticleButton.setOnAction(event -> handleAddArticleButtonAction());
+
 
     }
 
@@ -221,67 +219,7 @@ public class Administration {
 
         articleTable.getColumns().addAll(headlineCol, shortDescriptionCol, authorsCol, dateCol, categoryCol, linkCol);
     }
-    @FXML
-    private void handleAddArticleButtonAction() {
-        String headline = headlineField.getText();
-        String shortDescription = shortDescriptionField.getText();
-        String authors = authorsField.getText();
-        String date = dateField.getText();
-        String link = linkField.getText();
 
-        if (headline.isEmpty() || shortDescription.isEmpty() || authors.isEmpty() || date.isEmpty() || link.isEmpty()) {
-            showError("All fields must be filled out.");
-            return;
-        }
-
-        // Create a new document for the article
-        Document articleDoc = new Document("headline", headline)
-                .append("short description", shortDescription)
-                .append("authors", authors)
-                .append("date", date)
-                .append("link", link);
-
-        // Insert the article into the MongoDB database
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
-            MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
-            MongoCollection<Document> articleCollection = database.getCollection("News_Articles");
-            articleCollection.insertOne(articleDoc);
-        }
-
-        // Categorize and refresh the article list
-        categorizeAndRefreshArticles();
-
-        // Clear input fields
-        clearFields();
-    }
-
-    private void categorizeAndRefreshArticles() {
-        ArticleProcess articleProcess = new ArticleProcess();
-        Map<String, List<Document>> categorizedArticles = articleProcess.processArticles();
-
-        articleList.clear();
-        categorizedArticles.forEach((category, articles) -> {
-            for (Document article : articles) {
-                String headline = article.getString("headline");
-                String shortDescription = article.getString("short description");
-                String authors = article.getString("authors");
-                String date = article.getString("date");
-                String link = article.getString("link");
-
-                articleList.add(new ArticleType(headline, shortDescription, authors, date, category, link));
-            }
-        });
-
-        articleTable.setItems(articleList);
-    }
-
-    private void clearFields() {
-        headlineField.clear();
-        shortDescriptionField.clear();
-        authorsField.clear();
-        dateField.clear();
-        linkField.clear();
-    }
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
