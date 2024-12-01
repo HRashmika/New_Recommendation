@@ -59,7 +59,6 @@ public class SignUp extends User {
     private MongoDatabase database;
     private MongoCollection<Document> collection;
 
-    // Constructor to initialize MongoDB connection
     public SignUp() {
         super();
         try {
@@ -107,7 +106,6 @@ public class SignUp extends User {
             return;
         }
 
-        // Collect user preferences
         StringBuilder preferencesBuilder = new StringBuilder();
         if (techCheckBox.isSelected()) preferencesBuilder.append("Technology, ");
         if (aiCheckBox.isSelected()) preferencesBuilder.append("AI, ");
@@ -139,18 +137,9 @@ public class SignUp extends User {
         }
     }
 
-    @FXML
-    private void handleLoginButtonAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
-        AnchorPane loginPane = loader.load();
-        Scene loginScene = new Scene(loginPane);
-        Stage stage = (Stage) loginButton.getScene().getWindow();
-        stage.setScene(loginScene);
-        stage.show();
-    }
 
     private void navigateToOptions() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Articles.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
         AnchorPane optionsPane = loader.load();
         Scene optionsScene = new Scene(optionsPane);
         Stage stage = (Stage) signupButton.getScene().getWindow();
@@ -167,9 +156,4 @@ public class SignUp extends User {
         alert.showAndWait();
     }
 
-    public void closeMongoClient() {
-        if (mongoClient != null) {
-            mongoClient.close();
-        }
-    }
 }

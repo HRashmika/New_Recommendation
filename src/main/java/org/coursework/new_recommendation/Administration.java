@@ -7,21 +7,27 @@ import com.mongodb.client.MongoDatabase;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.bson.Document;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public class Administration {
 
     @FXML
     private Button articleManagementButton;
+    @FXML
+    private Button logoutbutton;
 
     @FXML
     private TableView<ArticleType> articleTable;
@@ -60,17 +66,11 @@ public class Administration {
     private String currentAdminUsername = "admin123";
     @FXML
     private Button addArticleButton;
-    private Scene mainScene;
-
-    @FXML
-    private TextField headlineField, shortDescriptionField, authorsField, dateField, linkField;
-
 
 
 
     @FXML
     public void initialize() {
-        mainScene = articleManagementPane.getScene();
 
         userManagementButton.setOnAction(event -> {
             loadUserDetails();
@@ -98,32 +98,14 @@ public class Administration {
             handleAddArticle();
         });
 
-
-    }
-
-    private void loadAdminProfile() {
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
-            MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
-            MongoCollection<Document> adminCollection = database.getCollection("Admin_Login");
-
-            Document adminDoc = adminCollection.find(new Document("Admin ID", currentAdminUsername)).first();
-
-            if (adminDoc != null) {
-                adminUsernameField.setText(currentAdminUsername);
-
-                List<String> loginTimes = adminDoc.getList("loginTimes", String.class);
-                ObservableList<String> loginTimesList = FXCollections.observableArrayList(loginTimes);
-                adminLoginTable.setItems(loginTimesList);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void setCurrentAdminUsername(String adminUsername) {
         this.currentAdminUsername = adminUsername;
         loadAdminProfile();
     }
+
+
 
 
     private void loadUserDetails() {
@@ -178,27 +160,55 @@ public class Administration {
         userTable.getColumns().addAll(usernameCol, emailCol, preferencesCol, loginTimeCol);
     }
 
+    private void loadAdminProfile() {
+        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
+            MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
+            MongoCollection<Document> adminCollection = database.getCollection("Admin_Login");
+
+            Document adminDoc = adminCollection.find(new Document("Admin ID", currentAdminUsername)).first();
+
+            if (adminDoc != null) {
+                adminUsernameField.setText(currentAdminUsername);
+
+                List<String> loginTimes = adminDoc.getList("loginTimes", String.class);
+                ObservableList<String> loginTimesList = FXCollections.observableArrayList(loginTimes);
+                adminLoginTable.setItems(loginTimesList);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private void loadCategorizedArticles() {
         articleList = FXCollections.observableArrayList();
 
-        ArticleProcess articleProcess = new ArticleProcess();
-        Map<String, List<Document>> categorizedArticles = articleProcess.processArticles();
+        List<String> allowedCategories = List.of("sports", "health", "technology", "politics", "weather", "entertainment");
 
-        categorizedArticles.forEach((category, articles) -> {
-            for (Document article : articles) {
+        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
+            MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
+            MongoCollection<Document> articleCollection = database.getCollection("News_Articles");
+
+            for (Document article : articleCollection.find()) {
                 String headline = article.getString("headline");
                 String shortDescription = article.getString("short description");
                 String authors = article.getString("authors");
                 String date = article.getString("date");
                 String link = article.getString("link");
+                String category = article.getString("category");
 
-                articleList.add(new ArticleType(headline, shortDescription, authors, date, category, link));
+                if (allowedCategories.contains(category)) {
+                    articleList.add(new ArticleType(headline, shortDescription, authors, date, category, link));
+                }
             }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         setupArticleTable();
         articleTable.setItems(articleList);
     }
+
 
     private void setupArticleTable() {
         articleTable.getColumns().clear();
@@ -281,12 +291,19 @@ public class Administration {
         });
 
         dialog.showAndWait().ifPresent(article -> {
+            // Add the new article to the top of the table
+            articleList.add(0, article); // Insert at the top of the ObservableList
 
-            saveArticleToDatabase(article);
+            // Refresh the TableView to reflect the new article at the top
+            articleTable.refresh();
 
-            loadCategorizedArticles();
+            saveArticleToDatabase(article); // Save the article to the database
+
+            loadCategorizedArticles(); // Reload the table to refresh with the new data
         });
+
     }
+
 
     private void saveArticleToDatabase(ArticleType article) {
         try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
@@ -308,7 +325,15 @@ public class Administration {
             showError("Error adding article to database.");
         }
     }
-
+    @FXML
+    private void handleLogOutButton(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        AnchorPane loginPane = loader.load();
+        Scene loginScene = new Scene(loginPane);
+        Stage stage = (Stage) logoutbutton.getScene().getWindow();
+        stage.setScene(loginScene);
+        stage.show();
+    }
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

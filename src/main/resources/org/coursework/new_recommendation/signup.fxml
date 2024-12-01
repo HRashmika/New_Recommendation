@@ -18,9 +18,8 @@
          <children>
             <PasswordField fx:id="confirmPasswordTextField" layoutX="145.0" layoutY="170.0" prefHeight="26.0" prefWidth="336.0" style="-fx-background-radius: 50;" />
             <Label fx:id="errorMessageLabel" textFill="red" visible="false" />
-            <Line endX="100.0" layoutX="302.0" layoutY="321.0" startX="-100.0" />
-            <Button fx:id="loginButton" layoutX="313.0" layoutY="346.0" onAction="#handleLoginButtonAction" style="-fx-background-radius: 10;" text="Login" />
-            <Text layoutX="159.0" layoutY="363.0" text="Already have an account?" />
+
+
             <Button fx:id="backButton" layoutX="20.0" layoutY="17.0" onAction="#handleBackButtonAction" style="-fx-background-radius: 10;" text="Back" />
             <CheckBox fx:id="entertainmentCheckBox" layoutX="364.0" layoutY="253.0" text="Entertainment" />
             <Button fx:id="signupButton" layoutX="276.0" layoutY="287.0" onAction="#handleSignUpButtonAction" style="-fx-background-radius: 10;" text="Signup" />

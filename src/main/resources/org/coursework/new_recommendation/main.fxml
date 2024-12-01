@@ -11,14 +11,14 @@
         <Pane layoutX="60.0" layoutY="82.0" prefHeight="230.0" prefWidth="468.0" style="-fx-background-color: rgba(224, 176, 255, 0.5);">
 
             <children>
-                  <Button fx:id="signUpButton" layoutX="268.0" layoutY="94.0" mnemonicParsing="false" onAction="#handleUserSignUpButtonAction" text="Sign Up" />
-                  <Button fx:id="UserloginButton" layoutX="146.0" layoutY="94.0" mnemonicParsing="false" onAction="#handleUserLoginButtonAction" text="Login" />
+                  <Button fx:id="signUpButton" layoutX="268.0" layoutY="94.0" mnemonicParsing="false" style="-fx-background-radius: 10;"  onAction="#handleUserSignUpButtonAction" text="Sign Up" />
+                  <Button fx:id="UserloginButton" layoutX="146.0" layoutY="94.0" mnemonicParsing="false" style="-fx-background-radius: 10;"  onAction="#handleUserLoginButtonAction" text="Login" />
                   <Text layoutX="218.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User">
                       <font>
                           <Font size="18.0" />
                       </font>
                   </Text>
-                  <Button fx:id="loginButton" layoutX="223.0" layoutY="175.0" mnemonicParsing="false" onAction="#handleLoginButtonAction" text="Login" />
+                  <Button fx:id="loginButton" layoutX="223.0" layoutY="175.0" mnemonicParsing="false" style="-fx-background-radius: 10;"  onAction="#handleLoginButtonAction" text="Login" />
                   <Text layoutX="182.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Administrator">
                       <font>
                           <Font size="18.0" />

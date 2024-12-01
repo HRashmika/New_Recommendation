@@ -7,18 +7,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="402.0" prefWidth="789.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.Administration">
+<AnchorPane prefHeight="402.0" prefWidth="789.0" styleClass="anchor-pane-background" stylesheets="@../../../CSS/signup.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.Administration">
    <children>
-      <Button fx:id="userManagementButton" layoutX="24.0" layoutY="117.0" text="User Management" />
-      <Button fx:id="articleManagementButton" layoutX="24.0" layoutY="188.0" text="Article Management" />
-      <Button fx:id="profileButton" layoutX="24.0" layoutY="266.0" text="Profile" />
+      <Button fx:id="userManagementButton" layoutX="17.0" layoutY="75.0" style="-fx-background-radius: 10;" text="User Management" />
+      <Button fx:id="articleManagementButton" layoutX="12.0" layoutY="137.0" style="-fx-background-radius: 10;" text="Article Management" />
+      <Button fx:id="profileButton" layoutX="49.0" layoutY="211.0" style="-fx-background-radius: 10;" text="Profile" />
 
-      <StackPane layoutX="148.0" prefHeight="625.0" prefWidth="640.0">
+      <StackPane layoutX="158.0" prefHeight="402.0" prefWidth="630.0">
          <children>
-            <Pane fx:id="articleManagementPane" visible="false">
-               <Button fx:id="addArticleButton" layoutX="44.0" layoutY="347.0" mnemonicParsing="false"  prefHeight="32.0" prefWidth="76.0" text="Add Article" />
+            <Pane fx:id="articleManagementPane" style="-fx-background-color: #E0B0FF;" visible="false">
+               <Button fx:id="addArticleButton" layoutX="44.0" layoutY="347.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="76.0" style="-fx-background-radius: 10;" text="Add Article" />
                <TableView fx:id="articleTable" layoutX="20.0" layoutY="20.0" prefHeight="300.0" prefWidth="600.0">
                   <columns>
                      <TableColumn fx:id="headlineCol" text="Headline" />
@@ -31,7 +32,7 @@
                </TableView>
 
             </Pane>
-            <Pane fx:id="userManagementPane" visible="false">
+            <Pane fx:id="userManagementPane" style="-fx-background-color: #E0B0FF;" visible="false">
                <TableView fx:id="userTable" layoutX="20.0" layoutY="20.0" prefHeight="300.0" prefWidth="600.0">
                   <columns>
                      <TableColumn fx:id="usernameCol" text="Username" />
@@ -42,9 +43,9 @@
                </TableView>
             </Pane>
 
-            <Pane fx:id="profilePane" visible="false">
+            <Pane fx:id="profilePane" style="-fx-background-color: #E0B0FF;" visible="false">
                <Text layoutX="20.0" layoutY="30.0" text="Admin Username:" />
-               <TextField fx:id="adminUsernameField" layoutX="150.0" layoutY="10.0" />
+               <TextField fx:id="adminUsernameField" layoutX="150.0" layoutY="10.0" style="-fx-background-radius: 50;" />
                <TableView fx:id="adminLoginTable" layoutX="20.0" layoutY="50.0" prefHeight="200.0" prefWidth="600.0">
                   <columns>
                      <TableColumn fx:id="loginTimesCol" text="Login Times" />
@@ -53,5 +54,7 @@
             </Pane>
          </children>
       </StackPane>
+      <Button fx:id="logoutbutton" onAction="#handleLogOutButton" layoutX="48.0" layoutY="311.0" mnemonicParsing="false" style="-fx-background-radius: 10;" text="Log Out" />
+      <Line endX="38.600006103515625" layoutX="107.0" layoutY="284.0" startX="-100.0" />
    </children>
 </AnchorPane>

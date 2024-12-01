@@ -53,15 +53,4 @@ public class User {
         return loginTime;
     }
 
-    public void setLoginTime(List<String> loginTime) {
-        this.loginTime = loginTime;
-    }
-
-    // Method to get the most recent login time
-    public String getMostRecentLoginTime() {
-        if (loginTime != null && !loginTime.isEmpty()) {
-            return loginTime.get(loginTime.size() - 1); // Get the last element
-        }
-        return "N/A";
-    }
 }

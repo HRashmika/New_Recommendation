@@ -23,17 +23,6 @@ public class MainApplication extends Application {
 
     private static String loginUser;
 
-    public static String getLoginUser() {
-        return loginUser;
-    }
-
-
-    public static void setLoginUser(String username) {
-        loginUser = username;
-    }
-
-
-
     @Override
     public void start(Stage primaryStage) {
         try {

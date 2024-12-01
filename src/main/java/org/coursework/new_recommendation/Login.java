@@ -36,12 +36,6 @@ public class Login extends User {
     @FXML
     private PasswordField passwordField;
 
-    @FXML
-    private Button loginButton;
-
-    @FXML
-    private Button backButton;
-
     public Login() {
         super(); // Initialize the User base class
         try {

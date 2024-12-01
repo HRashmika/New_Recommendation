@@ -40,4 +40,8 @@ public class ArticleType {
     public String getLink() {
         return link;
     }
+    @Override
+    public String toString() {
+        return "Headline: " + headline + " | Category: " + category;
+    }
 }
