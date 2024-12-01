@@ -116,17 +116,14 @@ public class SignUp extends User {
         if (sportsCheckBox.isSelected()) preferencesBuilder.append("Sports, ");
         if (entertainmentCheckBox.isSelected()) preferencesBuilder.append("Finance, ");
 
-        // Remove the trailing comma and space
         if (preferencesBuilder.toString().endsWith(", ")) {
             preferencesBuilder.setLength(preferencesBuilder.length() - 2);
         }
 
-        // Use inherited setters from User class
         this.setEmail(email);
         this.setUsername(username);
         this.setPreferences(preferencesBuilder.toString());
 
-        // Insert into MongoDB
         try {
             Document userDocument = new Document("email", this.getEmail())
                     .append("username", this.getUsername())

@@ -11,7 +11,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JSON {
+public class JSON extends ArticleProcess {
+
     public static void main(String[] args) {
         String jsonFile = "src/main/resources/Data_CSV/News_Articles.json";
 
@@ -22,8 +23,11 @@ public class JSON {
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(jsonFile))) {
             String line;
             List<Document> documents = new ArrayList<>();
+            int articleCount = 0;  // Counter to track the number of articles processed
 
-            while ((line = reader.readLine()) != null) {
+            JSON jsonProcessor = new JSON(); // Create an instance of the derived class
+
+            while ((line = reader.readLine()) != null && articleCount < 500) {  // Limit to 500 articles
                 if (line.trim().isEmpty()) {
                     continue;
                 }
@@ -36,18 +40,27 @@ public class JSON {
                 String authors = jsonObject.optString("authors");
                 String date = jsonObject.optString("date");
 
+                List<String> keywords = jsonProcessor.extractKeywords(headline);
+                String category = jsonProcessor.categorizeKeywords(keywords);
+
                 Document doc = new Document("link", link)
                         .append("headline", headline)
                         .append("short description", shortDescription)
                         .append("authors", authors)
-                        .append("date", date);
+                        .append("date", date)
+                        .append("category", category); // Add category field
 
                 documents.add(doc);
+                articleCount++;  // Increment the counter
+
+                if (articleCount >= 500) {
+                    break;
+                }
             }
 
             if (!documents.isEmpty()) {
                 collection.insertMany(documents);
-                System.out.println("Data inserted successfully.");
+                System.out.println("Data inserted successfully with categories. Total articles: " + articleCount);
             } else {
                 System.out.println("No data to insert.");
             }

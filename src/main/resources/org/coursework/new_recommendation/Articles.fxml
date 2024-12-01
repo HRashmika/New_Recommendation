@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -9,18 +11,22 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.control.TextArea?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../../CSS/signup.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.Articles">
     <children>
         <Button fx:id="homeButton" layoutX="44.0" layoutY="66.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" text="Home" />
-        <Button fx:id="recommendationsButton" layoutX="34.0" layoutY="193.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="106.0" text="Recommendations" />
+        <Button fx:id="recommendationsButton" layoutX="34.0" layoutY="193.0" onAction="#handleRecommendationsButtonAction" text="Recommendations" />
         <Button fx:id="likeArticleButton" layoutX="63.0" layoutY="252.0" mnemonicParsing="false" onAction="#handleLikeArticleButtonAction" text="Liked Articles" />
-
         <Button fx:id="profileButton" layoutX="62.0" layoutY="314.0" mnemonicParsing="false" onAction="#handleProfileButtonAction" text="Profile" />
         <Button fx:id="articlesButton" layoutX="60.0" layoutY="126.0" mnemonicParsing="false" onAction="#handleArticlesButtonAction" text="Articles" />
 
-        <StackPane fx:id="contentPane" layoutX="168.0" prefHeight="402.0" prefWidth="653.0">
+        <StackPane fx:id="contentPane" layoutX="168.0" layoutY="4.0" prefHeight="402.0" prefWidth="653.0">
             <children>
+
                 <Pane fx:id="articlesPane" prefHeight="378.0" prefWidth="530.0" visible="false">
                     <children>
                         <HBox alignment="CENTER" layoutX="20.0" layoutY="24.0" prefWidth="490.0" spacing="20.0">
@@ -37,52 +43,90 @@
                     </children>
                 </Pane>
 
-                <Pane fx:id="articleDetailsPane" prefHeight="378.0" prefWidth="530.0" visible="false">
-                    <children>
-                        <VBox fx:id="articleDetailsVBox" layoutX="20.0" layoutY="24.0" prefWidth="490.0" spacing="20.0">
-                            <children>
-                                <Text fx:id="headlineText" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
-                                <Text fx:id="descriptionText" />
-                                <Text fx:id="authorsText" />
-                                <Text fx:id="dateText" />
-                                <Text fx:id="linkText" />
-                                <HBox spacing="10.0">
-                                    <Button fx:id="likeButton" mnemonicParsing="false" text="Like" onAction="#handleLikeAction" />
-                                    <Button fx:id="dislikeButton" mnemonicParsing="false" text="Dislike" onAction="#handleDislikeAction" />
-                                </HBox>
-                            </children>
-                        </VBox>
-                    </children>
-                </Pane>
                 <Pane fx:id="likedArticlesPane" prefHeight="378.0" prefWidth="530.0" visible="false">
                     <children>
                         <VBox alignment="TOP_LEFT" layoutX="20.0" layoutY="20.0" spacing="10.0">
                             <children>
-                                <Text text="Liked Articles" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                                <Text style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Liked Articles" />
                                 <ListView fx:id="likedArticlesListView" prefHeight="300.0" prefWidth="490.0" />
                             </children>
                         </VBox>
                     </children>
                 </Pane>
-                <Pane fx:id="profilePane" prefHeight="249.0" prefWidth="478.0" visible="false" style="-fx-background-color: #E0B0FF;">
+
+
+                <Pane fx:id="profilePane" prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: #E0B0FF;" visible="false">
                     <children>
-                        <VBox layoutX="50.0" layoutY="50.0" prefHeight="310.0" prefWidth="550.0" spacing="15.0">
-                            <children>
-                                <HBox spacing="10.0">
-                                    <Text text="User Name:" />
-                                    <TextField fx:id="usernameField" prefWidth="200.0" />
-                                </HBox>
-                                <HBox spacing="10.0">
-                                    <Text text="Email:" />
-                                    <TextField fx:id="emailField" prefWidth="200.0" />
-                                </HBox>
-                                <HBox spacing="10.0">
-                                    <Text text="Preferences:" />
-                                    <TextField fx:id="preferencesField" prefWidth="200.0" />
-                                </HBox>
-                            </children>
+                        <VBox alignment="CENTER" spacing="20" prefWidth="600.0" prefHeight="400.0">
+                            <GridPane hgap="10" vgap="15">
+                                <columnConstraints>
+                                    <ColumnConstraints halignment="RIGHT" />
+                                    <ColumnConstraints hgrow="ALWAYS" />
+                                </columnConstraints>
+
+                                <Label text="Username:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                                <TextField fx:id="usernameField" promptText="Enter new username" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                                <Button text="Update Username" GridPane.rowIndex="0" GridPane.columnIndex="2" onAction="#handleUpdateUsernameAction" />
+
+
+                                <Label text="Email:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                                <TextField fx:id="emailField" promptText="Enter new email" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                                <Button text="Update Email" GridPane.rowIndex="1" GridPane.columnIndex="2" onAction="#handleUpdateEmailAction" />
+
+                                <Label text="Preferences:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                                <TextField fx:id="preferencesField" promptText="Enter preferences" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                                <Button text="Update Preferences" GridPane.rowIndex="2" GridPane.columnIndex="2" onAction="#handleUpdatePreferencesAction" />
+
+                            </GridPane>
                         </VBox>
                     </children>
+                </Pane>
+
+                <Pane fx:id="articleDetailsPane" prefHeight="378.0" prefWidth="530.0" visible="false">
+                    <children>
+                        <VBox fx:id="articleDetailsVBox" layoutX="20.0" layoutY="24.0" prefWidth="490.0" spacing="20.0">
+
+                            <HBox spacing="10.0">
+                                <Label text="Headline:" />
+                                <Text fx:id="headlineText" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+                            </HBox>
+
+                            <HBox spacing="10.0">
+                                <Label text="Description:" />
+                                <TextArea fx:id="descriptionText" wrapText="true" editable="false" prefHeight="150.0" prefWidth="400.0" />
+                            </HBox>
+
+                            <HBox spacing="10.0">
+                                <Label text="Authors:" />
+                                <Text fx:id="authorsText" />
+                            </HBox>
+
+                            <HBox spacing="10.0">
+                                <Label text="Date:" />
+                                <Text fx:id="dateText" />
+                            </HBox>
+
+                            <HBox spacing="10.0">
+                                <Label text="Link:" />
+                                <Text fx:id="linkText" />
+                            </HBox>
+
+                            <HBox spacing="10.0" alignment="CENTER">
+                                <Button fx:id="likeButton" mnemonicParsing="false" onAction="#handleLikeAction" text="Like" />
+                                <Button fx:id="dislikeButton" mnemonicParsing="false" onAction="#handleDislikeAction" text="Dislike" />
+                                <Button fx:id="openLinkButton" mnemonicParsing="false" text="Link" />
+                            </HBox>
+                        </VBox>
+                    </children>
+                </Pane>
+
+                <Pane fx:id="recommendationsPane" visible="false">
+                    <TableView fx:id="recommendationsTableView">
+                        <columns>
+                            <TableColumn fx:id="headlineColumn" text="Headline" />
+                            <TableColumn fx:id="categoryColumn" text="Category" />
+                        </columns>
+                    </TableView>
                 </Pane>
             </children>
         </StackPane>

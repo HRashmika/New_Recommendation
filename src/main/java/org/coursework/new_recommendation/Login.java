@@ -118,6 +118,7 @@ public class Login extends User {
 
             Articles articlesController = loader.getController();
 
+
             articlesController.setCurrentUser(this.getUsername());
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import org.bson.Document;
 
@@ -93,6 +94,9 @@ public class Administration {
         });
 
         loginTimesCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue()));
+        addArticleButton.setOnAction(event -> {
+            handleAddArticle();
+        });
 
 
     }
@@ -219,6 +223,92 @@ public class Administration {
 
         articleTable.getColumns().addAll(headlineCol, shortDescriptionCol, authorsCol, dateCol, categoryCol, linkCol);
     }
+    @FXML
+    private void handleAddArticle() {
+
+        Dialog<ArticleType> dialog = new Dialog<>();
+        dialog.setTitle("Add New Article");
+        dialog.setHeaderText("Please fill in the details for the new article");
+
+        ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, cancelButtonType);
+
+        TextField headlineField = new TextField();
+        headlineField.setPromptText("Headline");
+        TextField shortDescriptionField = new TextField();
+        shortDescriptionField.setPromptText("Short Description");
+        TextField authorsField = new TextField();
+        authorsField.setPromptText("Authors");
+        TextField dateField = new TextField();
+        dateField.setPromptText("Date");
+        TextField linkField = new TextField();
+        linkField.setPromptText("Link");
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.add(new Label("Headline:"), 0, 0);
+        grid.add(headlineField, 1, 0);
+        grid.add(new Label("Short Description:"), 0, 1);
+        grid.add(shortDescriptionField, 1, 1);
+        grid.add(new Label("Authors:"), 0, 2);
+        grid.add(authorsField, 1, 2);
+        grid.add(new Label("Date:"), 0, 3);
+        grid.add(dateField, 1, 3);
+        grid.add(new Label("Link:"), 0, 4);
+        grid.add(linkField, 1, 4);
+        dialog.getDialogPane().setContent(grid);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == saveButtonType) {
+                String headline = headlineField.getText();
+                String shortDescription = shortDescriptionField.getText();
+                String authors = authorsField.getText();
+                String date = dateField.getText();
+                String link = linkField.getText();
+
+                ArticleType article = new ArticleType(headline, shortDescription, authors, date, "", link);
+
+                ArticleProcess articleProcess = new ArticleProcess();
+                List<String> keywords = articleProcess.extractKeywords(headline);
+                String category = articleProcess.categorizeKeywords(keywords);
+
+                article = new ArticleType(headline, shortDescription, authors, date, category, link);
+                return article;
+            }
+            return null;
+        });
+
+        dialog.showAndWait().ifPresent(article -> {
+
+            saveArticleToDatabase(article);
+
+            loadCategorizedArticles();
+        });
+    }
+
+    private void saveArticleToDatabase(ArticleType article) {
+        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
+            MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
+            MongoCollection<Document> articleCollection = database.getCollection("News_Articles");
+
+            Document articleDoc = new Document()
+                    .append("headline", article.getHeadline())
+                    .append("short description", article.getShortDescription())
+                    .append("authors", article.getAuthors())
+                    .append("date", article.getDate())
+                    .append("category", article.getCategory())
+                    .append("link", article.getLink());
+
+            articleCollection.insertOne(articleDoc);
+            System.out.println("Article added successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Error adding article to database.");
+        }
+    }
+
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
