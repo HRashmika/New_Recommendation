@@ -111,8 +111,6 @@ public class Login extends User {
             Scene optionsScene = new Scene(loader.load());
 
             Articles articlesController = loader.getController();
-
-
             articlesController.setCurrentUser(this.getUsername());
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -120,8 +118,10 @@ public class Login extends User {
             stage.show();
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Navigation Error", "Could not load options page: " + e.getMessage());
+            e.printStackTrace();  // Print stack trace for debugging
         }
     }
+
 
 
     // Handle back button click

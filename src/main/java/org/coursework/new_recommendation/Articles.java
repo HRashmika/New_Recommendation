@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.control.Label;
@@ -39,14 +40,10 @@ public class Articles {
     private ListView<String> articlesListView, likedArticlesListView;
 
     @FXML
-    private TableView<Document> recommendationsTableView;
-    @FXML
     private TableView<String> loginTimesTableView;
     @FXML
     private TableColumn<String, String> loginTimeColumn;
 
-    @FXML
-    private TableColumn<Document, String> headlineColumn, categoryColumn;
 
     private final ObservableList<String> likedHeadlines = FXCollections.observableArrayList();
     private final ObservableList<String> dislikedHeadlines = FXCollections.observableArrayList();
@@ -58,25 +55,75 @@ public class Articles {
     private MongoDatabase database;
     private String currentArticleLink;
 
+
+
+
+
+    private ObservableList<ArticleType> articleList;
     public void setCurrentUser(String username) {
         this.currentUser = username;
         loadUserDetails();
     }
+    @FXML
+    private TableView<ArticleType> recommendationsTableView;
+    @FXML
+    private TableColumn<ArticleType, String> headlineColumn;
+    @FXML
+    private TableColumn<ArticleType, String> categoryColumn;
+
+    private Recommendation recommendationService;
+
     public void initialize() {
+        MongoDatabase database = getMongoDatabase();
+        recommendationService = new Recommendation(database);
+        setupArticleTable();
+    }
+
+    private MongoDatabase getMongoDatabase() {
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+        return mongoClient.getDatabase("News_Recommendation_System");
+    }
+
+    @FXML
+    private void handleRecommendationButtonAction(ActionEvent event) {
+        recommendationsPane.setVisible(true);
+        articlesPane.setVisible(false);
+
+        String username = currentUser;
+        System.out.println("Fetching recommendations for user: " + username);
+
         try {
-            mongoClient = MongoClients.create("mongodb://localhost:27017");
-            database = mongoClient.getDatabase("News_Recommendation_System");
+            List<ArticleType> recommendedArticles = recommendationService.recommendArticles(username);
 
+            System.out.println("Number of recommended articles: " + recommendedArticles.size());
+            recommendedArticles.forEach(article -> {
+                System.out.println("Article: " + article.getHeadline() + " | Category: " + article.getCategory());
+            });
 
-            headlineColumn.setCellValueFactory(cellData ->
-                    new SimpleStringProperty(cellData.getValue().getString("headline")));
-            categoryColumn.setCellValueFactory(cellData ->
-                    new SimpleStringProperty(cellData.getValue().getString("category")));
-            loginTimeColumn.setCellValueFactory(cellData ->
-                    new SimpleStringProperty(cellData.getValue()));
-        } catch (Exception e) {
-            showError("Failed to connect to MongoDB: " + e.getMessage());
+            ObservableList<ArticleType> observableList = FXCollections.observableArrayList(recommendedArticles);
+            recommendationsTableView.setItems(observableList);
+            headlineColumn.setCellValueFactory(new PropertyValueFactory<>("headline"));
+            categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+
+        } catch (IllegalArgumentException e) {
+            showError("Invalid username. Please try again.");
         }
+    }
+
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void setupArticleTable() {
+        recommendationsTableView.setItems(FXCollections.observableArrayList());
+
+        headlineColumn.setCellValueFactory(new PropertyValueFactory<>("headline"));
+        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
     }
     private void displayLoginTimes(List<String> loginTimes) {
 
@@ -431,13 +478,6 @@ public class Articles {
         infoAlert.showAndWait();
     }
 
-    private void showError(String message) {
-        System.out.println(message);
-        Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-        errorAlert.setTitle("Error");
-        errorAlert.setHeaderText(null);
-        errorAlert.setContentText(message);
-        errorAlert.showAndWait();
-    }
+
 
 }

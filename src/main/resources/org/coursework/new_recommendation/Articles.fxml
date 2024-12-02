@@ -21,8 +21,8 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchor-pane-background" stylesheets="@../../../CSS/articles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.Articles">
     <children>
         <Button fx:id="homeButton" layoutX="52.0" layoutY="53.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" style="-fx-background-radius: 10;" text="Home" />
-        <Button fx:id="recommendationsButton" layoutX="38.0" layoutY="160.0" style="-fx-background-radius: 10;" text="Recommendations" />
-        <Button fx:id="likeArticleButton" layoutX="48.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleLikeArticleButtonAction" style="-fx-background-radius: 10;" text="Liked Articles" />
+        <Button fx:id="recommendationsButton" layoutX="38.0" layoutY="160.0"  onAction="#handleRecommendationButtonAction"  style="-fx-background-radius: 10;" text="Recommendations"  />
+<Button fx:id="likeArticleButton" layoutX="48.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleLikeArticleButtonAction" style="-fx-background-radius: 10;" text="Liked Articles" />
         <Button fx:id="profileButton" layoutX="66.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleProfileButtonAction" style="-fx-background-radius: 10;" text="Profile" />
         <Button fx:id="articlesButton" layoutX="68.0" layoutY="107.0" mnemonicParsing="false" onAction="#handleArticlesButtonAction" style="-fx-background-radius: 10;" text="Articles" />
 
@@ -63,7 +63,7 @@
                                 <columnConstraints>
                                     <ColumnConstraints halignment="RIGHT" />
                                     <ColumnConstraints hgrow="ALWAYS" />
-                           <ColumnConstraints />
+
                                 </columnConstraints>
 
                                 <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-background-radius: 50;"/>
@@ -135,6 +135,7 @@
                 </Pane>
 
                 <Pane fx:id="recommendationsPane" visible="false">
+
                     <TableView fx:id="recommendationsTableView">
                         <columns>
                             <TableColumn fx:id="headlineColumn" text="Headline" />
