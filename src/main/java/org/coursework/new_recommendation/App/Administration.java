@@ -1,7 +1,5 @@
-package org.coursework.new_recommendation;
+package org.coursework.new_recommendation.App;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,6 +16,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.bson.Document;
+import org.coursework.new_recommendation.Services.ArticleProcess;
+import org.coursework.new_recommendation.Model.ArticleType;
+import org.coursework.new_recommendation.Model.User;
+import org.coursework.new_recommendation.Database.MongoDBConnection;
 
 import java.io.IOException;
 import java.util.List;
@@ -59,6 +61,8 @@ public class Administration {
 
     @FXML
     private TableColumn<String, String> loginTimesCol;
+    @FXML
+    private Button deleteArticleButton;
 
     @FXML
     private Button profileButton;
@@ -67,8 +71,12 @@ public class Administration {
     @FXML
     private Button addArticleButton;
 
+    public void setCurrentAdminUsername(String adminUsername) {
+        this.currentAdminUsername = adminUsername;
+        loadAdminProfile();
+    }
 
-
+    // Initializing the methods
     @FXML
     public void initialize() {
 
@@ -97,48 +105,39 @@ public class Administration {
         addArticleButton.setOnAction(event -> {
             handleAddArticle();
         });
-
+        deleteArticleButton.setOnAction(event -> handleDeleteArticle());
     }
-
-    public void setCurrentAdminUsername(String adminUsername) {
-        this.currentAdminUsername = adminUsername;
-        loadAdminProfile();
-    }
-
-
-
-
+    // Loading the user details
     private void loadUserDetails() {
         userList = FXCollections.observableArrayList();
+        MongoDatabase database = MongoDBConnection.getDatabase();
+        MongoCollection<Document> userDetailsCollection = database.getCollection("User_Details");
+        MongoCollection<Document> userLoginCollection = database.getCollection("User_Login");
 
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
-            MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
-            MongoCollection<Document> userDetailsCollection = database.getCollection("User_Details");
-            MongoCollection<Document> userLoginCollection = database.getCollection("User_Login");
+        for (Document userDoc : userDetailsCollection.find()) {
+            String username = userDoc.get("username", String.class);
+            String email = userDoc.get("email", String.class);
+            String preferences = userDoc.get("preferences", String.class);
 
-            for (Document userDoc : userDetailsCollection.find()) {
-                String username = userDoc.getString("username");
-                String email = userDoc.getString("email");
-                String preferences = userDoc.getString("preferences");
-
-                Document loginDoc = userLoginCollection.find(new Document("username", username)).first();
-                List<String> loginTimes = null;
-
-                if (loginDoc != null && loginDoc.containsKey("loginTimes")) {
-                    loginTimes = loginDoc.getList("loginTimes", String.class);
-                }
-
-                userList.add(new User(username, email, preferences, loginTimes));
+            if (username == null || email == null || preferences == null) {
+                System.err.println("Missing required fields for user: " + username);
+                continue;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
+            Document loginDoc = userLoginCollection.find(new Document("username", username)).first();
+            List<String> loginTimes = null;
+
+            if (loginDoc != null) {
+                loginTimes = loginDoc.getList("loginTimes", String.class);
+            }
+            userList.add(new User(username, email, preferences, loginTimes));
+        }
         setupUserTable();
         userTable.setItems(userList);
     }
 
     private void setupUserTable() {
+
         userTable.getColumns().clear();
 
         TableColumn<User, String> usernameCol = new TableColumn<>("Username");
@@ -153,62 +152,38 @@ public class Administration {
         TableColumn<User, String> loginTimeCol = new TableColumn<>("Login Times");
         loginTimeCol.setCellValueFactory(cellData -> {
             User user = cellData.getValue();
-            List<String> times = user.getLoginTime();
+            List<String> times = user.getLoginTimes();
+            // Here if the loginTimes are null,"N/A" is stored
             return new SimpleStringProperty(times != null ? String.join(", ", times) : "N/A");
         });
 
         userTable.getColumns().addAll(usernameCol, emailCol, preferencesCol, loginTimeCol);
     }
 
-    private void loadAdminProfile() {
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
-            MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
-            MongoCollection<Document> adminCollection = database.getCollection("Admin_Login");
-
-            Document adminDoc = adminCollection.find(new Document("Admin ID", currentAdminUsername)).first();
-
-            if (adminDoc != null) {
-                adminUsernameField.setText(currentAdminUsername);
-
-                List<String> loginTimes = adminDoc.getList("loginTimes", String.class);
-                ObservableList<String> loginTimesList = FXCollections.observableArrayList(loginTimes);
-                adminLoginTable.setItems(loginTimesList);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
+    // Loading the categorized articles from the database
     private void loadCategorizedArticles() {
         articleList = FXCollections.observableArrayList();
-
+        // Only these categories are considered
         List<String> allowedCategories = List.of("sports", "health", "technology", "politics", "weather", "entertainment");
 
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
-            MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
-            MongoCollection<Document> articleCollection = database.getCollection("News_Articles");
+        MongoDatabase database = MongoDBConnection.getDatabase();
+        MongoCollection<Document> articleCollection = database.getCollection("News_Articles");
 
-            for (Document article : articleCollection.find()) {
-                String headline = article.getString("headline");
-                String shortDescription = article.getString("short description");
-                String authors = article.getString("authors");
-                String date = article.getString("date");
-                String link = article.getString("link");
-                String category = article.getString("category");
+        for (Document article : articleCollection.find()) {
+            String headline = article.getString("headline");
+            String shortDescription = article.getString("short description");
+            String authors = article.getString("authors");
+            String date = article.getString("date");
+            String link = article.getString("link");
+            String category = article.getString("category");
 
-                if (allowedCategories.contains(category)) {
-                    articleList.add(new ArticleType(headline, shortDescription, authors, date, category, link));
-                }
+            if (allowedCategories.contains(category)) {
+                articleList.add(new ArticleType(headline, shortDescription, authors, date, category, link));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
         setupArticleTable();
         articleTable.setItems(articleList);
     }
-
 
     private void setupArticleTable() {
         articleTable.getColumns().clear();
@@ -233,9 +208,10 @@ public class Administration {
 
         articleTable.getColumns().addAll(headlineCol, shortDescriptionCol, authorsCol, dateCol, categoryCol, linkCol);
     }
+
+    // Method for adding the articles
     @FXML
     private void handleAddArticle() {
-
         Dialog<ArticleType> dialog = new Dialog<>();
         dialog.setTitle("Add New Article");
         dialog.setHeaderText("Please fill in the details for the new article");
@@ -281,6 +257,7 @@ public class Administration {
                 ArticleType article = new ArticleType(headline, shortDescription, authors, date, "", link);
 
                 ArticleProcess articleProcess = new ArticleProcess();
+                // Categorizing the article using the key word extraction
                 List<String> keywords = articleProcess.extractKeywords(headline);
                 String category = articleProcess.categorizeKeywords(keywords);
 
@@ -291,23 +268,48 @@ public class Administration {
         });
 
         dialog.showAndWait().ifPresent(article -> {
-            // Add the new article to the top of the table
-            articleList.add(0, article); // Insert at the top of the ObservableList
-
-            // Refresh the TableView to reflect the new article at the top
+            articleList.add(0, article);
             articleTable.refresh();
+            // Calling the method to save the article to the database
+            saveArticleToDatabase(article);
+            loadCategorizedArticles();
 
-            saveArticleToDatabase(article); // Save the article to the database
-
-            loadCategorizedArticles(); // Reload the table to refresh with the new data
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText(null);
+            alert.setContentText("Article added successfully!");
+            alert.showAndWait();
         });
-
     }
 
+    // Method to delete the articles
+    @FXML
+    private void handleDeleteArticle() {
+        // Taking the selected article to delete
+        ArticleType selectedArticle = articleTable.getSelectionModel().getSelectedItem();
 
+        if (selectedArticle != null) {
+            MongoDatabase database = MongoDBConnection.getDatabase();
+            MongoCollection<Document> articleCollection = database.getCollection("News_Articles");
+
+            // Deleting the selected article
+            articleCollection.deleteOne(new Document("headline", selectedArticle.getHeadline()));
+            loadCategorizedArticles();
+
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText(null);
+            alert.setContentText("Article deleted successfully!");
+            alert.showAndWait();
+        } else {
+            showAlert(Alert.AlertType.WARNING, "No article selected", "Please select an article to delete.");
+        }
+    }
+
+    // Saving the article to the database, used in  the add articles
     private void saveArticleToDatabase(ArticleType article) {
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017")) {
-            MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
+        try {
+            MongoDatabase database = MongoDBConnection.getDatabase();
             MongoCollection<Document> articleCollection = database.getCollection("News_Articles");
 
             Document articleDoc = new Document()
@@ -318,6 +320,7 @@ public class Administration {
                     .append("category", article.getCategory())
                     .append("link", article.getLink());
 
+            // Article inserted to the mongoDB
             articleCollection.insertOne(articleDoc);
             System.out.println("Article added successfully!");
         } catch (Exception e) {
@@ -325,15 +328,42 @@ public class Administration {
             showError("Error adding article to database.");
         }
     }
+
+    // Loading the profile of the administrator
+    private void loadAdminProfile() {
+        MongoDatabase database = MongoDBConnection.getDatabase();
+        MongoCollection<Document> adminCollection = database.getCollection("Admin_Login");
+        Document adminDoc = adminCollection.find(new Document("Admin ID", currentAdminUsername)).first();
+
+        if (adminDoc != null) {
+            adminUsernameField.setText(currentAdminUsername);
+            List<String> loginTimes = adminDoc.getList("loginTimes", String.class);
+            // LoginTimes are saved in a list
+            ObservableList<String> loginTimesList = FXCollections.observableArrayList(loginTimes);
+            adminLoginTable.setItems(loginTimesList);
+        }
+    }
+
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    // Login out of the administration
     @FXML
     private void handleLogOutButton(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/coursework/new_recommendation/main.fxml"));
         AnchorPane loginPane = loader.load();
         Scene loginScene = new Scene(loginPane);
         Stage stage = (Stage) logoutbutton.getScene().getWindow();
         stage.setScene(loginScene);
         stage.show();
     }
+
 
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -342,5 +372,4 @@ public class Administration {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
 }

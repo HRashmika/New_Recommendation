@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -18,11 +19,12 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchor-pane-background" stylesheets="@../../../CSS/articles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.Articles">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchor-pane-background" stylesheets="@../../../CSS/articles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.App.UserOptions">
     <children>
         <Button fx:id="homeButton" layoutX="52.0" layoutY="53.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" style="-fx-background-radius: 10;" text="Home" />
-        <Button fx:id="recommendationsButton" layoutX="38.0" layoutY="160.0"  onAction="#handleRecommendationButtonAction"  style="-fx-background-radius: 10;" text="Recommendations"  />
-<Button fx:id="likeArticleButton" layoutX="48.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleLikeArticleButtonAction" style="-fx-background-radius: 10;" text="Liked Articles" />
+        <Button fx:id="recommendationsButton" layoutX="38.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleRecommendationsButtonAction" style="-fx-background-radius: 10;" text="Recommendations" />
+
+        <Button fx:id="likeArticleButton" layoutX="48.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleLikeArticleButtonAction" style="-fx-background-radius: 10;" text="Liked Articles" />
         <Button fx:id="profileButton" layoutX="66.0" layoutY="262.0" mnemonicParsing="false" onAction="#handleProfileButtonAction" style="-fx-background-radius: 10;" text="Profile" />
         <Button fx:id="articlesButton" layoutX="68.0" layoutY="107.0" mnemonicParsing="false" onAction="#handleArticlesButtonAction" style="-fx-background-radius: 10;" text="Articles" />
 
@@ -33,12 +35,12 @@
                     <children>
                         <HBox alignment="CENTER" layoutX="20.0" layoutY="24.0" prefWidth="490.0" spacing="20.0">
                             <children>
-                                <Button fx:id="technologyButton" mnemonicParsing="false" style="-fx-background-radius: 10;"  onAction="#handleTechnologyButtonAction" text="Technology" />
-                                <Button fx:id="sportsButton" mnemonicParsing="false" style="-fx-background-radius: 10;" onAction="#handleSportsButtonAction" text="Sports" />
-                                <Button fx:id="healthButton" mnemonicParsing="false" style="-fx-background-radius: 10;" onAction="#handleHealthButtonAction" text="Health" />
-                                <Button fx:id="politicsButton" mnemonicParsing="false" style="-fx-background-radius: 10;" onAction="#handlePoliticsButtonAction" text="Politics" />
-                                <Button fx:id="entertainmentButton" mnemonicParsing="false" style="-fx-background-radius: 10;" onAction="#handleEntertainmentButtonAction" text="Entertainment" />
-                                <Button fx:id="weatherButton" mnemonicParsing="false" style="-fx-background-radius: 10;" onAction="#handleWeatherButtonAction" text="Weather" />
+                                <Button fx:id="technologyButton" mnemonicParsing="false" onAction="#handleTechnologyButtonAction" style="-fx-background-radius: 10;" text="Technology" />
+                                <Button fx:id="sportsButton" mnemonicParsing="false" onAction="#handleSportsButtonAction" style="-fx-background-radius: 10;" text="Sports" />
+                                <Button fx:id="healthButton" mnemonicParsing="false" onAction="#handleHealthButtonAction" style="-fx-background-radius: 10;" text="Health" />
+                                <Button fx:id="politicsButton" mnemonicParsing="false" onAction="#handlePoliticsButtonAction" style="-fx-background-radius: 10;" text="Politics" />
+                                <Button fx:id="entertainmentButton" mnemonicParsing="false" onAction="#handleEntertainmentButtonAction" style="-fx-background-radius: 10;" text="Entertainment" />
+                                <Button fx:id="weatherButton" mnemonicParsing="false" onAction="#handleWeatherButtonAction" style="-fx-background-radius: 10;" text="Weather" />
                             </children>
                         </HBox>
                         <ListView fx:id="articlesListView" layoutX="36.0" layoutY="80.0" prefHeight="303.0" prefWidth="473.0" />
@@ -58,40 +60,49 @@
 
                 <Pane fx:id="profilePane" prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: #E0B0FF;" visible="false">
                     <children>
-                        <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20">
+                        <VBox alignment="CENTER" prefHeight="400" prefWidth="600" spacing="20">
                             <GridPane hgap="10" vgap="15">
                                 <columnConstraints>
                                     <ColumnConstraints halignment="RIGHT" />
                                     <ColumnConstraints hgrow="ALWAYS" />
-
+                           <ColumnConstraints />
                                 </columnConstraints>
-
-                                <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-background-radius: 50;"/>
+                                <Label style="-fx-background-radius: 50;" text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                 <TextField fx:id="usernameField" promptText="Enter new username" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                                <Button onAction="#handleUpdateUsernameAction" style="-fx-background-radius: 10;" text="Update Username" GridPane.columnIndex="2" GridPane.rowIndex="0" />
 
-                                <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-background-radius: 50;"/>
+                                <Label style="-fx-background-radius: 50;" text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                 <TextField fx:id="emailField" promptText="Enter new email" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                <Button onAction="#handleUpdateEmailAction" style="-fx-background-radius: 10;" text="Update Email" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 
-                                <Label text="Preferences:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-background-radius: 50;"/>
+                                <Label style="-fx-background-radius: 50;" text="Preferences:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                                 <TextField fx:id="preferencesField" promptText="Enter preferences" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                <Button onAction="#handleUpdatePreferencesAction" style="-fx-background-radius: 10;" text="Update Preferences" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <rowConstraints>
-                           <RowConstraints />
-                           <RowConstraints />
-                           <RowConstraints />
-                        </rowConstraints>
 
+                                <Label text="New Password:" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-background-radius: 50;" />
+                                <TextField fx:id="newPasswordField" promptText="Enter new password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                                <Label text="Confirm Password:" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-background-radius: 50;" />
+                                <TextField fx:id="confirmPasswordField" promptText="Confirm new password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+                                <Button onAction="#handleUpdateAllFieldsAction" style="-fx-background-radius: 10;" text="Update All Fields" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
+                                <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                    <RowConstraints />
+                                </rowConstraints>
                             </GridPane>
 
-                            <TableView fx:id="loginTimesTableView" prefHeight="147.0" prefWidth="476.0">
+                            <TableView fx:id="loginTimesTableView" layoutX="100.0" layoutY="100.0" prefHeight="287.0" prefWidth="300.0">
                                 <columns>
-                                    <TableColumn fx:id="loginTimeColumn" prefWidth="599.1999816894531" text="Login Times" />
+                                    <TableColumn fx:id="loginTimeColumn" text="Login Times" prefWidth="300.0">
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="loginTime" />
+                                        </cellValueFactory>
+                                    </TableColumn>
                                 </columns>
                             </TableView>
 
                         </VBox>
+
                     </children>
                 </Pane>
 
@@ -100,34 +111,34 @@
                         <VBox fx:id="articleDetailsVBox" layoutX="20.0" layoutY="24.0" prefWidth="490.0" spacing="20.0">
 
                             <HBox spacing="10.0">
-                                <Label text="Headline:" style="-fx-background-radius: 50;"/>
+                                <Label style="-fx-background-radius: 50;" text="Headline:" />
                                 <Text fx:id="headlineText" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
                             </HBox>
 
                             <HBox spacing="10.0">
-                                <Label text="Description:" style="-fx-background-radius: 50;"/>
+                                <Label style="-fx-background-radius: 50;" text="Description:" />
                                 <TextArea fx:id="descriptionText" editable="false" prefHeight="150.0" prefWidth="400.0" wrapText="true" />
                             </HBox>
 
                             <HBox spacing="10.0">
-                                <Label text="Authors:" style="-fx-background-radius: 50;"/>
+                                <Label style="-fx-background-radius: 50;" text="Authors:" />
                                 <Text fx:id="authorsText" />
                             </HBox>
 
                             <HBox spacing="10.0">
-                                <Label text="Date:" style="-fx-background-radius: 50;" />
+                                <Label style="-fx-background-radius: 50;" text="Date:" />
                                 <Text fx:id="dateText" />
                             </HBox>
 
                             <HBox spacing="10.0">
-                                <Label text="Link:" style="-fx-background-radius: 50;"/>
+                                <Label style="-fx-background-radius: 50;" text="Link:" />
                                 <Text fx:id="linkText" />
                             </HBox>
 
                             <HBox alignment="CENTER" spacing="10.0">
-                                <Button fx:id="likeButton" mnemonicParsing="false" style="-fx-background-radius: 10;"  onAction="#handleLikeAction" text="Like" />
-                                <Button fx:id="dislikeButton" mnemonicParsing="false" style="-fx-background-radius: 10;" onAction="#handleDislikeAction" text="Dislike" />
-                                <Button fx:id="openLinkButton" mnemonicParsing="false" style="-fx-background-radius: 10;" onAction="#handleOpenArticle" text="Link" />
+                                <Button fx:id="likeButton" mnemonicParsing="false" onAction="#handleLikeAction" style="-fx-background-radius: 10;" text="Like" />
+                                <Button fx:id="dislikeButton" mnemonicParsing="false" onAction="#handleDislikeAction" style="-fx-background-radius: 10;" text="Dislike" />
+                                <Button fx:id="openLinkButton" mnemonicParsing="false" onAction="#handleOpenArticle" style="-fx-background-radius: 10;" text="Link" />
 
                             </HBox>
                         </VBox>
@@ -135,18 +146,25 @@
                 </Pane>
 
                 <Pane fx:id="recommendationsPane" visible="false">
-
-                    <TableView fx:id="recommendationsTableView">
+                    <TableView fx:id="articlesTableView">
                         <columns>
                             <TableColumn fx:id="headlineColumn" text="Headline" />
                             <TableColumn fx:id="categoryColumn" text="Category" />
+                            <TableColumn fx:id="shortDescriptionColumn" text="Short Description" />
+                            <TableColumn fx:id="dateColumn" text="Date" />
+                            <TableColumn fx:id="linkColumn" text="Link" />
+                            <TableColumn fx:id="openArticleColumn" text="Open Full Article" />
                         </columns>
                     </TableView>
+
+
                 </Pane>
+
+
             </children>
         </StackPane>
-        <Button fx:id="logoutbutton" onAction="#handleLogOutButton" layoutX="66.0" layoutY="350.0" mnemonicParsing="false" style="-fx-background-radius: 10;" text="Log Out" />
+        <Button fx:id="logoutbutton" layoutX="66.0" layoutY="350.0" mnemonicParsing="false" onAction="#handleLogOutButton" style="-fx-background-radius: 10;" text="Log Out" />
 
-        <Line endX="32.99998474121094" endY="-3.0517578125E-5" layoutX="115.0" layoutY="316.0" startX="-100.0" />
+        <Line endX="32.99998474121094" endY="-3.0517578125E-5" layoutX="115.0" layoutY="316.0" startX="-100.0" stroke="WHITE" />
     </children>
 </AnchorPane>

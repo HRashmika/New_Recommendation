@@ -4,13 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="97f9d708-7c25-46e2-a6d4-f27559e7dabc" name="Changes" comment="Making the GUI and trying to implement the recommendation with OOP concepts">
+    <list default="true" id="97f9d708-7c25-46e2-a6d4-f27559e7dabc" name="Changes" comment="Making the recommendation using the preference only">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Database/MongoDBConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Model/Admin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Services/AdminService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Services/ArticleProcess.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Services/LoginService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Services/RecEngine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Services/SignUpService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleRecommendation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Score.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Articles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Articles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Recommendation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Recommendation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/Articles.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/Articles.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/AdminLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/App/AdminLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Administration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/App/Administration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleProcess.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/ArticleType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Model/ArticleType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Articles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/App/UserOptions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/JSON.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Other/ArticleFetcher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/App/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/App/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Recommendation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Score.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/SignUp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/App/SignUp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/coursework/new_recommendation/Model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/Articles.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/userOptions.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/admin_login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/admin_login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/administration.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/administration.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/signup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/coursework/new_recommendation/signup.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,35 +79,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.ApplicationClass.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ArticleProcess.executor&quot;: &quot;Run&quot;,
-    &quot;Application.CSV.executor&quot;: &quot;Run&quot;,
-    &quot;Application.JSON.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Mainpage.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_directory_selection&quot;: &quot;C:/Users/User/IdeaProjects/New_Recommendation/src/main/java/org/coursework/new_recommendation&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ApplicationClass.executor": "Run",
+    "Application.ArticleFetcher.executor": "Run",
+    "Application.ArticleProcess.executor": "Run",
+    "Application.CSV.executor": "Run",
+    "Application.JSON.executor": "Run",
+    "Application.MainApplication.executor": "Run",
+    "Application.Mainpage.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "C:/Users/User/IdeaProjects/New_Recommendation/src/main/java/org/coursework/new_recommendation",
+    "last_opened_file_path": "C:/",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.JavaFX",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mongo&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mongo"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\User\IdeaProjects\New_Recommendation\src\main\java\org\coursework\new_recommendation\Services" />
       <recent name="C:\Users\User\IdeaProjects\New_Recommendation\src\main\resources" />
     </key>
   </component>
@@ -165,7 +190,33 @@
       <workItem from="1733061487114" duration="5155000" />
       <workItem from="1733097566901" duration="6811000" />
       <workItem from="1733122484445" duration="328000" />
-      <workItem from="1733126113849" duration="1860000" />
+      <workItem from="1733126113849" duration="1943000" />
+      <workItem from="1733130908009" duration="1855000" />
+      <workItem from="1733147328901" duration="4653000" />
+      <workItem from="1733180107950" duration="2897000" />
+      <workItem from="1733194390791" duration="550000" />
+      <workItem from="1733195657984" duration="333000" />
+      <workItem from="1733197139653" duration="266000" />
+      <workItem from="1733234760543" duration="1332000" />
+      <workItem from="1733239179731" duration="7803000" />
+      <workItem from="1733274252110" duration="2891000" />
+      <workItem from="1733282630870" duration="393000" />
+      <workItem from="1733291877348" duration="5986000" />
+      <workItem from="1733305860828" duration="2956000" />
+      <workItem from="1733317498276" duration="2618000" />
+      <workItem from="1733350744596" duration="1875000" />
+      <workItem from="1733365609340" duration="182000" />
+      <workItem from="1733367159438" duration="610000" />
+      <workItem from="1733367842030" duration="32000" />
+      <workItem from="1733372292453" duration="905000" />
+      <workItem from="1733373366354" duration="116000" />
+      <workItem from="1733374335181" duration="3517000" />
+      <workItem from="1733378004030" duration="15682000" />
+      <workItem from="1733394955308" duration="2549000" />
+      <workItem from="1733418424986" duration="22237000" />
+      <workItem from="1733456591153" duration="1098000" />
+      <workItem from="1733457719374" duration="14000" />
+      <workItem from="1733458386930" duration="10682000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <option name="closed" value="true" />
@@ -367,7 +418,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733067448859</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Making the recommendation using the preference only">
+      <option name="closed" value="true" />
+      <created>1733130862614</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1733130862614</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -378,7 +437,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -406,7 +471,8 @@
     <MESSAGE value="Making corrections in the adding function" />
     <MESSAGE value="Making the profile and recommendation" />
     <MESSAGE value="Making the GUI and trying to implement the recommendation with OOP concepts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Making the GUI and trying to implement the recommendation with OOP concepts" />
+    <MESSAGE value="Making the recommendation using the preference only" />
+    <option name="LAST_COMMIT_MESSAGE" value="Making the recommendation using the preference only" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

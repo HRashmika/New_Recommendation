@@ -1,4 +1,4 @@
-package org.coursework.new_recommendation;
+package org.coursework.new_recommendation.Model;
 
 import java.util.List;
 
@@ -6,25 +6,23 @@ public class User {
     private String username;
     private String email;
     private String preferences;
-    private List<String> loginTime; // Store login times as a list of strings
+    private List<String> loginTimes;  // Change here from loginTime to loginTimes
 
-    // Constructor with parameters
-    public User(String username, String email, String preferences, List<String> loginTime) {
+    public User(String username, String email, String preferences, List<String> loginTimes) {
         this.username = username;
         this.email = email;
         this.preferences = preferences;
-        this.loginTime = loginTime;
+        this.loginTimes = loginTimes;
     }
 
-    // Default constructor
+    // For login times
     public User() {
         this.username = "";
         this.email = "";
         this.preferences = "";
-        this.loginTime = null;
+        this.loginTimes = null;  // Changed here as well
     }
 
-    // Getters and setters
     public String getUsername() {
         return username;
     }
@@ -49,8 +47,11 @@ public class User {
         this.preferences = preferences;
     }
 
-    public List<String> getLoginTime() {
-        return loginTime;
+    public List<String> getLoginTimes() {
+        return loginTimes;
     }
 
+    public void setLoginTimes(List<String> loginTimes) {
+        this.loginTimes = loginTimes;
+    }
 }

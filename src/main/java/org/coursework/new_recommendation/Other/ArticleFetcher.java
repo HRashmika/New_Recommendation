@@ -1,7 +1,9 @@
-package org.coursework.new_recommendation;
+package org.coursework.new_recommendation.Other;
 
 import com.mongodb.client.*;
 import org.bson.Document;
+import org.coursework.new_recommendation.Database.MongoDBConnection;
+import org.coursework.new_recommendation.Services.ArticleProcess;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -11,13 +13,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JSON extends ArticleProcess {
+public class ArticleFetcher extends ArticleProcess {
 
     public static void main(String[] args) {
-        String jsonFile = "src/main/resources/Data_CSV/News_Articles.json";
+        String jsonFile = "src/main/resources/DataSet/News_Articles.json";
 
-        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
-        MongoDatabase database = mongoClient.getDatabase("News_Recommendation_System");
+        // Get the database connection using MongoDBConnection Singleton
+        MongoDatabase database = MongoDBConnection.getDatabase();
         MongoCollection<Document> collection = database.getCollection("News_Articles");
 
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(jsonFile))) {
@@ -25,9 +27,9 @@ public class JSON extends ArticleProcess {
             List<Document> documents = new ArrayList<>();
             int articleCount = 0;  // Counter to track the number of articles processed
 
-            JSON jsonProcessor = new JSON(); // Create an instance of the derived class
-
-            while ((line = reader.readLine()) != null && articleCount < 500) {  // Limit to 500 articles
+            ArticleFetcher jsonProcessor = new ArticleFetcher(); // Create an instance
+            // Here only 500 articles are considered
+            while ((line = reader.readLine()) != null && articleCount < 500) {
                 if (line.trim().isEmpty()) {
                     continue;
                 }
@@ -40,6 +42,7 @@ public class JSON extends ArticleProcess {
                 String authors = jsonObject.optString("authors");
                 String date = jsonObject.optString("date");
 
+                // Extract the keywords
                 List<String> keywords = jsonProcessor.extractKeywords(headline);
                 String category = jsonProcessor.categorizeKeywords(keywords);
 
@@ -48,10 +51,10 @@ public class JSON extends ArticleProcess {
                         .append("short description", shortDescription)
                         .append("authors", authors)
                         .append("date", date)
-                        .append("category", category); // Add category field
+                        .append("category", category);
 
                 documents.add(doc);
-                articleCount++;  // Increment the counter
+                articleCount++;
 
                 if (articleCount >= 500) {
                     break;
@@ -70,7 +73,8 @@ public class JSON extends ArticleProcess {
         } catch (org.json.JSONException e) {
             e.printStackTrace();
         } finally {
-            mongoClient.close();
+            // Close MongoDB connection through the singleton class
+            MongoDBConnection.closeConnection();
         }
     }
 }

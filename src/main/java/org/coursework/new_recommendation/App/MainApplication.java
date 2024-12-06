@@ -1,4 +1,4 @@
-package org.coursework.new_recommendation;
+package org.coursework.new_recommendation.App;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +26,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/coursework/new_recommendation/main.fxml"));
             AnchorPane root = loader.load();
 
             primaryStage.setTitle("News Recommendation System");
@@ -38,22 +38,21 @@ public class MainApplication extends Application {
         }
     }
 
-
-
     @FXML
     private void handleLoginButtonAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("admin_login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/coursework/new_recommendation/admin_login.fxml"));
         AnchorPane adminLoginPane = loader.load();
         Scene adminLoginScene = new Scene(adminLoginPane);
 
         Stage currentStage = (Stage) loginButton.getScene().getWindow();
         currentStage.setScene(adminLoginScene);
         currentStage.show();
+
     }
 
     @FXML
     private void handleUserLoginButtonAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/coursework/new_recommendation/login.fxml"));
         AnchorPane userLoginPane = loader.load();
         loginUser = "sample";
         Scene userLoginScene = new Scene(userLoginPane);
@@ -65,7 +64,7 @@ public class MainApplication extends Application {
 
     @FXML
     private void handleUserSignUpButtonAction(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("signup.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/coursework/new_recommendation/signup.fxml"));
         AnchorPane signUpPane = loader.load();
         Scene signUpScene = new Scene(signUpPane);
 
