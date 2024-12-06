@@ -209,7 +209,6 @@ public class Administration {
         articleTable.getColumns().addAll(headlineCol, shortDescriptionCol, authorsCol, dateCol, categoryCol, linkCol);
     }
 
-    // Method for adding the articles
     @FXML
     private void handleAddArticle() {
         Dialog<ArticleType> dialog = new Dialog<>();
@@ -219,6 +218,10 @@ public class Administration {
         ButtonType saveButtonType = new ButtonType("Save", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelButtonType = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().addAll(saveButtonType, cancelButtonType);
+
+        // Set the preferred width and height for the dialog to make it larger
+        dialog.getDialogPane().setPrefWidth(800);  // Set the preferred width (larger)
+        dialog.getDialogPane().setPrefHeight(500); // Set the preferred height (larger)
 
         TextField headlineField = new TextField();
         headlineField.setPromptText("Headline");
@@ -244,6 +247,10 @@ public class Administration {
         grid.add(dateField, 1, 3);
         grid.add(new Label("Link:"), 0, 4);
         grid.add(linkField, 1, 4);
+
+        // Add padding to the grid for a spacious layout
+        grid.setStyle("-fx-padding: 20;");
+
         dialog.getDialogPane().setContent(grid);
 
         dialog.setResultConverter(dialogButton -> {
@@ -257,7 +264,7 @@ public class Administration {
                 ArticleType article = new ArticleType(headline, shortDescription, authors, date, "", link);
 
                 ArticleProcess articleProcess = new ArticleProcess();
-                // Categorizing the article using the key word extraction
+                // Categorize the article using keyword extraction
                 List<String> keywords = articleProcess.extractKeywords(headline);
                 String category = articleProcess.categorizeKeywords(keywords);
 
@@ -270,7 +277,7 @@ public class Administration {
         dialog.showAndWait().ifPresent(article -> {
             articleList.add(0, article);
             articleTable.refresh();
-            // Calling the method to save the article to the database
+            // Call the method to save the article to the database
             saveArticleToDatabase(article);
             loadCategorizedArticles();
 
@@ -281,6 +288,7 @@ public class Administration {
             alert.showAndWait();
         });
     }
+
 
     // Method to delete the articles
     @FXML

@@ -19,9 +19,8 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="anchor-pane-background" stylesheets="@../../../CSS/articles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.App.UserOptions">
+<AnchorPane prefHeight="400.0" prefWidth="600.0"  style="-fx-background-color: #E0B0FF; " styleClass="anchor-pane-background" stylesheets="@../../../CSS/articles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.App.UserOptions">
     <children>
-        <Button fx:id="homeButton" layoutX="52.0" layoutY="53.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="87.0" style="-fx-background-radius: 10;" text="Home" />
         <Button fx:id="recommendationsButton" layoutX="38.0" layoutY="160.0" mnemonicParsing="false" onAction="#handleRecommendationsButtonAction" style="-fx-background-radius: 10;" text="Recommendations" />
 
         <Button fx:id="likeArticleButton" layoutX="48.0" layoutY="212.0" mnemonicParsing="false" onAction="#handleLikeArticleButtonAction" style="-fx-background-radius: 10;" text="Liked Articles" />
@@ -76,10 +75,10 @@
                                 <Label style="-fx-background-radius: 50;" text="Preferences:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                                 <TextField fx:id="preferencesField" promptText="Enter preferences" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                                <Label text="New Password:" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-background-radius: 50;" />
+                                <Label style="-fx-background-radius: 50;" text="New Password:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
                                 <TextField fx:id="newPasswordField" promptText="Enter new password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-                                <Label text="Confirm Password:" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-background-radius: 50;" />
+                                <Label style="-fx-background-radius: 50;" text="Confirm Password:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                                 <TextField fx:id="confirmPasswordField" promptText="Confirm new password" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
                                 <Button onAction="#handleUpdateAllFieldsAction" style="-fx-background-radius: 10;" text="Update All Fields" GridPane.columnIndex="1" GridPane.rowIndex="5" />
@@ -88,12 +87,15 @@
                                     <RowConstraints />
                                     <RowConstraints />
                                     <RowConstraints />
+                           <RowConstraints />
+                           <RowConstraints />
+                           <RowConstraints />
                                 </rowConstraints>
                             </GridPane>
 
                             <TableView fx:id="loginTimesTableView" layoutX="100.0" layoutY="100.0" prefHeight="287.0" prefWidth="300.0">
                                 <columns>
-                                    <TableColumn fx:id="loginTimeColumn" text="Login Times" prefWidth="300.0">
+                                    <TableColumn fx:id="loginTimeColumn" prefWidth="300.0" text="Login Times">
                                         <cellValueFactory>
                                             <PropertyValueFactory property="loginTime" />
                                         </cellValueFactory>
@@ -145,20 +147,17 @@
                     </children>
                 </Pane>
 
-                <Pane fx:id="recommendationsPane" visible="false">
-                    <TableView fx:id="articlesTableView">
+                <Pane fx:id="recommendationsPane" style="-fx-background-color: #E0B0FF;" visible="false">
+                    <TableView fx:id="articlesTableView" layoutX="106.0" layoutY="66.0" prefHeight="323.0" prefWidth="414.0">
                         <columns>
-                            <TableColumn fx:id="headlineColumn" text="Headline" />
-                            <TableColumn fx:id="categoryColumn" text="Category" />
-                            <TableColumn fx:id="shortDescriptionColumn" text="Short Description" />
-                            <TableColumn fx:id="dateColumn" text="Date" />
-                            <TableColumn fx:id="linkColumn" text="Link" />
-                            <TableColumn fx:id="openArticleColumn" text="Open Full Article" />
+                            <TableColumn fx:id="headlineColumn" prefWidth="260.0" text="Headline" />
+                            <TableColumn fx:id="categoryColumn" minWidth="0.0" prefWidth="0.0" text="Category" />
                         </columns>
                     </TableView>
 
 
                 </Pane>
+
 
 
             </children>

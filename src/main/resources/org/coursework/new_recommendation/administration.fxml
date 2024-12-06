@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="402.0" prefWidth="789.0" styleClass="anchor-pane-background" stylesheets="@../../../CSS/signup.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.App.Administration">
+<AnchorPane prefHeight="402.0" prefWidth="789.0" styleClass="anchor-pane-background"   style="-fx-background-color: #E0B0FF; " stylesheets="@../../../CSS/signup.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.coursework.new_recommendation.App.Administration">
    <children>
       <Button fx:id="userManagementButton" layoutX="17.0" layoutY="75.0" style="-fx-background-radius: 10;" text="User Management" />
       <Button fx:id="articleManagementButton" layoutX="12.0" layoutY="137.0" style="-fx-background-radius: 10;" text="Article Management" />

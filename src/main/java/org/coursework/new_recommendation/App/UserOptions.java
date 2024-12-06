@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.control.Label;
@@ -40,9 +39,6 @@ public class UserOptions {
     private Button logoutbutton;
     @FXML
     private TextField usernameField, emailField, preferencesField;
-    @FXML
-    private TableColumn<ArticleType, String> openArticleColumn;
-
 
     @FXML
     private TextField newPasswordField, confirmPasswordField;
@@ -50,7 +46,7 @@ public class UserOptions {
     @FXML
     private Pane profilePane, articlesPane, articleDetailsPane, likedArticlesPane, recommendationsPane;
     @FXML
-    private ListView<String> articlesListView, likedArticlesListView,recommendationsListView;
+    private ListView<String> articlesListView, likedArticlesListView;
     @FXML
     private TableView<ArticleType> articlesTableView;
     @FXML
@@ -74,26 +70,12 @@ public class UserOptions {
     private final ArticleProcess articleProcess = new ArticleProcess();
     private Map<String, List<Document>> categorizedArticles;
 
-    @FXML
-    private TableView<ArticleType> recommendationsTableView;
 
     @FXML
     private TableColumn<ArticleType, String> headlineColumn;
 
     @FXML
     private TableColumn<ArticleType, String> categoryColumn;
-
-    @FXML
-    private TableColumn<ArticleType, String> shortDescriptionColumn;
-
-    @FXML
-    private TableColumn<ArticleType, String> authorsColumn;
-
-    @FXML
-    private TableColumn<ArticleType, String> dateColumn;
-
-    @FXML
-    private TableColumn<ArticleType, String> linkColumn;
 
     private RecEngine recommendationService;
 
@@ -140,7 +122,7 @@ public class UserOptions {
 
         // Add listener for the article selection
         articlesListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            handleArticleClick(newValue);  // Show the article details dialog when an article is clicked
+            handleArticleClick(newValue);  // Showing the article details dialog when an article is clicked
         });
     }
 
@@ -149,6 +131,7 @@ public class UserOptions {
         return MongoDBConnection.getDatabase();
     }
 
+    // For category display
     private void displayArticlesByCategory(String category) {
         articlesListView.getItems().clear();
         if (categorizedArticles != null && categorizedArticles.containsKey(category)) {
@@ -156,11 +139,7 @@ public class UserOptions {
             for (Document article : articles) {
                 String headline = article.getString("headline");
                 if (headline != null) {
-                    // Add headline to the list view
                     articlesListView.getItems().add(headline);
-
-                    // Print the headline to the terminal
-                    System.out.println(headline);
                 } else {
                     showError("Article headline is missing.");
                 }
@@ -170,7 +149,7 @@ public class UserOptions {
         }
     }
 
-
+    // finding the article
     private Document findArticleByHeadline(String headline) {
         for (List<Document> articleList : categorizedArticles.values()) {
             for (Document article : articleList) {
@@ -182,10 +161,11 @@ public class UserOptions {
         return null;
     }
 
+    // Liking the article and removing the disliked article
     private void likeArticle(String headline) {
         if (!likedHeadlines.contains(headline)) {
             likedHeadlines.add(headline);
-            dislikedHeadlines.remove(headline);
+            dislikedHeadlines.remove(headline); // Remove from disliked if already disliked
 
             Document article = findArticleByHeadline(headline);
             if (article != null) {
@@ -193,7 +173,6 @@ public class UserOptions {
                 if (category != null) {
                     likedCategories.add(category);
                     new RecEngine().updateUserPreferences(currentUser, category, "like");
-                    System.out.println("Liked Category: " + category);
                 } else {
                     System.out.println("Unknown category for article.");
                 }
@@ -205,10 +184,11 @@ public class UserOptions {
         }
     }
 
+    // Disliking the article and removing the liked article
     private void dislikeArticle(String headline) {
         if (!dislikedHeadlines.contains(headline)) {
             dislikedHeadlines.add(headline);
-            likedHeadlines.remove(headline);
+            likedHeadlines.remove(headline); // Remove from liked if already liked
 
             Document article = findArticleByHeadline(headline);
             if (article != null) {
@@ -216,7 +196,6 @@ public class UserOptions {
                 if (category != null) {
                     dislikedCategories.add(category);
                     new RecEngine().updateUserPreferences(currentUser, category, "dislike");
-                    System.out.println("Disliked Category: " + category);
                 } else {
                     System.out.println("Unknown category for article.");
                 }
@@ -259,11 +238,9 @@ public class UserOptions {
 
                 if (!skippedCategories.contains(category)) {
                     skippedCategories.add(category);
-                    System.out.println("Skipped Category: " + category); // Debugging output
                 }
                 showInfo("You skipped an article in the category: " + category);
             } else {
-                System.out.println("Skipped Category: Unknown"); // Debugging output
                 showInfo("You skipped an article in an unknown category.");
             }
         } else {
@@ -276,10 +253,6 @@ public class UserOptions {
     private void handleOpenArticle() {
         if (currentArticleLink != null && !currentArticleLink.isEmpty()) {
             try {
-                // Debugging: Log currentArticleLink and currentHeadline
-                System.out.println("Opening article link: " + currentArticleLink);
-                System.out.println("Current headline: " + currentHeadline);
-
                 // Open the link in the browser
                 Desktop desktop = Desktop.getDesktop();
                 URI uri = new URI(currentArticleLink);
@@ -288,21 +261,16 @@ public class UserOptions {
                 // Find the article by headline
                 Document article = findArticleByHeadline(currentHeadline);
                 if (article != null) {
-                    System.out.println("Found article with headline: " + currentHeadline);
-
                     String category = article.getString("category");
                     if (category != null) {
                         if (!openedCategories.contains(category)) {
                             openedCategories.add(category);
-                            System.out.println("Opened Category: " + category);
                             showInfo("You opened an article in the category: " + category);
                         }
                     } else {
-                        System.out.println("Article does not have a category.");
                         showInfo("Article opened, but no category available.");
                     }
                 } else {
-                    System.out.println("No article found for headline: " + currentHeadline);
                     showInfo("Article not found for the headline: " + currentHeadline);
                 }
 
@@ -319,6 +287,7 @@ public class UserOptions {
         }
     }
 
+    // Categorize the article
     @FXML
     private void handleArticlesButtonAction() {
         categorizedArticles = articleProcess.processArticles();
@@ -328,6 +297,7 @@ public class UserOptions {
             handleArticleClick(newValue);});
     }
 
+    // On click viewing the article
     @FXML
     private void handleArticleClick(String selectedHeadline) {
         if (selectedHeadline != null && !isDialogOpen) {
@@ -342,36 +312,7 @@ public class UserOptions {
             showError("No article selected.");
         }
     }
-
-    private void setupArticleTable() {
-        recommendationsTableView.setItems(FXCollections.observableArrayList());
-
-        headlineColumn.setCellValueFactory(new PropertyValueFactory<>("headline"));
-        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
-
-        // Add a listener to handle row clicks
-        recommendationsTableView.setRowFactory(tv -> {
-            TableRow<ArticleType> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (!row.isEmpty() && event.getClickCount() == 1) { // Single click
-                    ArticleType clickedArticle = row.getItem();
-                    String selectedHeadline = clickedArticle.getHeadline(); // Get the headline
-
-                    // Find the corresponding article document
-                    Document selectedArticleDoc = findArticleByHeadline(selectedHeadline);
-                    if (selectedArticleDoc != null) {
-                        boolean isLiked = likedHeadlines.contains(selectedHeadline); // Check if the article is liked
-                        showArticleDialog(selectedArticleDoc, isLiked); // Display the dialog with the article details
-                    } else {
-                        showError("Selected article not found.");
-                    }
-                }
-            });
-            return row;
-        });
-    }
-
-
+    // Handling the recommendations
     @FXML
     private void handleRecommendationsButtonAction() {
         if (currentUser == null) {
@@ -389,56 +330,20 @@ public class UserOptions {
             // Create a list to store the Article objects
             List<ArticleType> articles = new ArrayList<>();
 
-            // Loop through recommended articles and create Article objects with headline, category, etc.
+            // Loop through recommended articles and create Article objects with only headline and category
             for (Document articleDoc : recommendedArticles) {
                 String headline = articleDoc.getString("headline");
                 String category = articleDoc.getString("category");
-                String shortDescription = articleDoc.getString("shortDescription");
-                String authors = articleDoc.getString("authors");
-                String date = articleDoc.getString("date");
-                String link = articleDoc.getString("link");
 
                 if (headline != null && !headline.trim().isEmpty() && category != null) {
-                    articles.add(new ArticleType(headline, category, shortDescription, authors, date, link));
+                    articles.add(new ArticleType(headline, category));
                 }
             }
 
-            // Convert the list of articles to an ObservableList
             ObservableList<ArticleType> observableArticles = FXCollections.observableArrayList(articles);
 
-            // Set the cell value factories for each column
             headlineColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHeadline()));
             categoryColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCategory()));
-            shortDescriptionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getShortDescription()));
-            dateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDate()));
-            linkColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLink()));
-
-            // Add a new column with a button to open the full article
-            openArticleColumn.setCellFactory(param -> new TableCell<ArticleType, String>() {
-                @Override
-                protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-
-                    if (empty) {
-                        setText(null);
-                        setGraphic(null);
-                    } else {
-                        Button openButton = new Button("View Article");
-                        openButton.setOnAction(event -> {
-                            ArticleType article = getTableRow().getItem();
-                            if (article != null && article.getHeadline() != null) {
-                                // Check if dialog is already open
-                                if (!isDialogOpen) {
-                                    isDialogOpen = true; // Mark dialog as open
-                                    showArticleDialog(article); // Show the article dialog
-                                }
-                            }
-                        });
-                        setGraphic(openButton);
-                        setText(null);
-                    }
-                }
-            });
 
             // Update the TableView with the articles
             articlesTableView.setItems(observableArticles);
@@ -448,31 +353,7 @@ public class UserOptions {
         }
     }
 
-    // Method to show article details in a dialog
-    private void showArticleDialog(ArticleType article) {
-        // Create a dialog with the article details
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Article Details");
-        alert.setHeaderText(article.getHeadline());
-
-        // Create the content for the article
-        String content = "Category: " + article.getCategory() + "\n"
-                + "Authors: " + article.getAuthors() + "\n"
-                + "Date: " + article.getDate() + "\n\n"
-                + article.getShortDescription() + "\n\n"
-                + "Read the full article here: " + article.getLink();
-
-        alert.setContentText(content);
-
-        // Add an event handler for when the dialog is closed
-        alert.setOnHidden(e -> {
-            isDialogOpen = false; // Mark dialog as closed
-        });
-
-        // Show the dialog
-        alert.showAndWait();
-    }
-
+    // If the user doesn't rate and go to like
     @FXML
     private void handleLikeArticleButtonAction() {
         switchPane(likedArticlesPane);
@@ -486,6 +367,7 @@ public class UserOptions {
             handleLikedArticleClick(newValue);
         });
     }
+    // On click open the liked article
     private void handleLikedArticleClick(String selectedHeadline) {
         if (selectedHeadline != null && !isDialogOpen) {
             Document selectedArticle = findArticleByHeadline(selectedHeadline);
@@ -499,9 +381,7 @@ public class UserOptions {
             showError("No article selected.");
         }
     }
-
-
-
+    // Handling the user profile
     @FXML
     private void handleProfileButtonAction() {
         switchPane(profilePane);
@@ -511,7 +391,7 @@ public class UserOptions {
             showError("No user is currently logged in.");
         }
     }
-
+    // Loading the user data
     private void loadUserDetails() {
         try {
             MongoDatabase database = MongoDBConnection.getDatabase();
@@ -544,7 +424,7 @@ public class UserOptions {
             showError("Failed to load user details: " + e.getMessage());
         }
     }
-
+    // Updating the profile fields
     @FXML
     private void handleUpdateAllFieldsAction() {
 
